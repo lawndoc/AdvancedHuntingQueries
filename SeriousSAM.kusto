@@ -1,0 +1,16 @@
+// This file contains 2 queries
+
+// Potential SeriousSAM Exploitation via direct access
+DeviceProcessEvents
+| where (ProcessCommandLine contains "\\Windows\\System32\\config\\SAM"
+     or ProcessCommandLine contains "\\Windows\\System32\\config\\SECURITY"
+     or ProcessCommandLine contains "\\Windows\\System32\\config\\SYSTEM")
+     and ProcessCommandLine !contains "systemprofile"
+| where FileName != "icacls.exe"
+
+// Potential SeriousSAM Exploitation via shadow copies
+DeviceProcessEvents
+| where ProcessCommandLine contains "\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy"
+| where ProcessCommandLine contains "\\Windows\\System32\\config\\SAM"
+     or ProcessCommandLine contains "\\Windows\\System32\\config\\SECURITY"
+     or ProcessCommandLine contains "\\Windows\\System32\\config\\SYSTEM"
