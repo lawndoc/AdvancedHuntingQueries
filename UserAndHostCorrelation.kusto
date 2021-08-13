@@ -1,0 +1,29 @@
+// This file contains 2 queries
+
+// Specify host to search for logged in users
+let HostName = "";
+//-- Finds all users that are currently logged into the specified computer -- //
+DeviceInfo
+    | distinct DeviceName, LoggedOnUsers
+    | where DeviceName contains HostName
+    | extend CurrentUsers = parse_json(LoggedOnUsers)
+    | project-away LoggedOnUsers, DeviceName
+    | mv-apply CurrentUsers on (
+        project User = CurrentUsers.UserName, SID = CurrentUsers.Sid
+    )
+    | extend Username = tostring(User), OnPremSid = tostring(SID)
+    | join IdentityInfo on OnPremSid
+    | extend FullName = strcat(GivenName, " ", Surname)
+    | summarize Count = count() by Username, FullName, JobTitle, EmailAddress, AccountObjectId
+    | project-away Count
+    
+// Specify username to search for hosts the user is logged into
+let UserID = "";
+// -- Finds all devices that a user is currently logged into -- //
+DeviceInfo
+    | distinct DeviceName, LoggedOnUsers
+    | extend CurrentUsers = parse_json(LoggedOnUsers)
+    | mv-apply CurrentUsers on (
+        where CurrentUsers.UserName == UserID
+    )
+    | project DeviceName
