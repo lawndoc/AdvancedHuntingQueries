@@ -1,0 +1,15 @@
+// Get the top 5 users whose logons have had the most anomalous increase
+// Service accounts showing up here are especially suspicous
+let interval = 12h;
+IdentityLogonEvents
+| where isnotempty(AccountUpn)
+| make-series LogonCount = count() on Timestamp from ago(30d) to now() step interval by AccountUpn
+| extend (flag, score, baseline) = series_decompose_anomalies(LogonCount)
+| mv-expand with_itemindex = FlagIndex flag to typeof(int) // Expand, but this time include the index in the array as FlagIndex
+| where flag == 1  // Once again, filter only to spikes
+| extend SpikeScore = todouble(score[FlagIndex]) // This will get the specific score associated with the detected spike
+| summarize MaxScore = max(SpikeScore) by AccountUpn
+| top 5 by MaxScore desc
+| join kind=rightsemi IdentityLogonEvents on AccountUpn // Rejoin top 5 anomalous upns to all their logons
+| summarize LogonCount = count() by AccountUpn, bin(Timestamp, interval)
+| render timechart
