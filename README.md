@@ -11,6 +11,9 @@ Microsoft 365 Defender Advanced Hunting Queries written in Kusto Query Language 
 - OAuth tokens can grant the 3rd party permissions without stealing credentials
 - Logins take place on login.windows.net or login.microsoftonline.com which is less suspicious
 
+### [Exfiltration](Exfiltration.kusto)
+
+
 ### [PhishDelivered](PhishDelivered.kusto)
 - Detects high-confidence phishing or malware emails that were delivered to one or more mailboxes
 
