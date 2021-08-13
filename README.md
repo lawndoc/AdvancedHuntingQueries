@@ -12,7 +12,9 @@ Microsoft 365 Defender Advanced Hunting Queries written in Kusto Query Language 
 - Logins take place on login.windows.net or login.microsoftonline.com which is less suspicious
 
 ### [Exfiltration](Exfiltration.kusto)
-
+- Non-browser uploading data to Mega cloud storage
+- Rclone sync tool (low-confidence malicious activity)
+- Renamed Rclone sync tool (high-confidence malicious activity)
 
 ### [PhishDelivered](PhishDelivered.kusto)
 - Detects high-confidence phishing or malware emails that were delivered to one or more mailboxes
