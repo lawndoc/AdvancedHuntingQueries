@@ -1,0 +1,19 @@
+EmailEvents
+| where ThreatTypes in ('Phish', 'Malware') and EmailAction !in ('Replace attachment', 'Send to quarantine')
+| where EmailDirection == "Inbound"
+| join kind=leftanti EmailPostDeliveryEvents on NetworkMessageId , RecipientEmailAddress
+| where ConfidenceLevel contains "High"
+// --- Whitelist ---//
+//| where SenderFromAddress !contains "@knowbe4.com"  // example whitelist
+// --- End Whitelist --- //
+| summarize FirstEmail = min(Timestamp), LatestEmail = max(Timestamp), Count = count(), Recipients = make_list(RecipientEmailAddress) by
+//--- Uncomment next line to expand each email instance and time of delivery to each recipient ---//
+    //Timestamp, RecipientEmailAddress,
+    Subject,
+    DetectionMethods,
+    HeaderFromAddress = SenderFromAddress,
+    EnvelopeSenderAddress = SenderMailFromAddress,
+    EmailDirection,
+    DeliveryAction,
+    Attachments = AttachmentCount
+| sort by LatestEmail
