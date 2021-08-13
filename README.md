@@ -7,3 +7,7 @@ Microsoft 365 Defender Advanced Hunting Queries written in Kusto Query Language 
 
 ### [SeriousSAM](SeriousSAM.kusto)
 - Hunt for potential exploitation of [SeriousSAM](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-36934)
+
+### [UserAndHostCorrelation](UserAndHostCorrelation.kusto)
+- Find all users currently logged in on a given host
+- Find all hosts that a given user is currently logged into
