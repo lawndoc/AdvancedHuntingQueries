@@ -1,0 +1,7 @@
+// hidden payload execution via XLL
+// read more at https://github.com/optiv/Dent#remote-xll-payload-mode
+DeviceEvents
+| where FileName =~ "excel.exe"
+| where InitiatingProcessParentFileName =~ "svchost.exe"
+| where InitiatingProcessCommandLine !contains "werfault.exe"
+| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine
