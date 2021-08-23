@@ -3,6 +3,6 @@
 // Logins take place on login.windows.net or login.microsoftonline.com which is less suspicious
 EmailUrlInfo  
 | where Url contains "https://login.windows.net/common/oauth2" or Url contains "https://login.microsoftonline.com/consumers/oauth2" 
-| where Url has "redirect_uri"
+| where Url contains "redirect_uri"
 | join EmailEvents  on $left.NetworkMessageId == $right.NetworkMessageId
 | where EmailDirection == "Inbound"
