@@ -4,4 +4,5 @@ DeviceEvents
 | where FileName =~ "excel.exe"
 | where InitiatingProcessParentFileName =~ "svchost.exe"
 | where InitiatingProcessCommandLine !contains "werfault.exe"
+| where InitiatingProcessCommandLine !contains "Dbghost.exe"
 | project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine
