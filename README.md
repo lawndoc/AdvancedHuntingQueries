@@ -16,6 +16,11 @@ Microsoft 365 Defender Advanced Hunting Queries written in Kusto Query Language 
 - Rclone sync tool (low-confidence malicious activity)
 - Renamed Rclone sync tool (high-confidence malicious activity)
 
+### [HiddenXLLPayload](HiddenXLLPayload.kusto)
+- Excel spawned by svchost.exe
+- Used to bypass ASR rules and deliver payload through COM
+- Implementation and writeup can be found at [ovtiv/Dent](https://github.com/optiv/Dent#remote-xll-payload-mode)
+
 ### [PhishDelivered](PhishDelivered.kusto)
 - Detects high-confidence phishing or malware emails that were delivered to one or more mailboxes
 
