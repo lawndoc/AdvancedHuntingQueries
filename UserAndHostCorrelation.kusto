@@ -17,13 +17,25 @@ DeviceInfo
     | summarize Count = count() by Username, FullName, JobTitle, EmailAddress, AccountObjectId
     | project-away Count
     
-// Specify username to search for hosts the user is logged into
-let UserID = "";
-// -- Finds all devices that a user is currently logged into -- //
+// ENTER INFO ON USER(S) INTO THE BELOW LISTS
+// needs minimum of 1 entry into 1 of the 4 lists
+// you can have multiple per list and use all 4 lists simultaneously
+let AzureAccountIDs = dynamic([]);
+let Usernames = dynamic([]);
+let EmailAddresses = dynamic(["user@example.com"]);
+let SIDs = dynamic([]);
 DeviceInfo
     | distinct DeviceName, LoggedOnUsers
-    | extend CurrentUsers = parse_json(LoggedOnUsers)
+    | project DeviceName, CurrentUsers = parse_json(LoggedOnUsers)
     | mv-apply CurrentUsers on (
-        where CurrentUsers.UserName == UserID
+        project DeviceName, User = CurrentUsers.UserName, SID = CurrentUsers.Sid
     )
-    | project DeviceName
+    | project DeviceName, Username = tostring(User), OnPremSid = tostring(SID)
+    | join IdentityInfo on OnPremSid
+    | where AccountObjectId in (AzureAccountIDs)
+         or Username in (Usernames)
+         or EmailAddress in (EmailAddresses)
+         or OnPremSid in (SIDs)
+    | extend FullName = strcat(GivenName, " ", Surname)
+    | summarize Count = count() by DeviceName, FullName, JobTitle, EmailAddress, Username, AccountObjectId
+    | project-away Count
