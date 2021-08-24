@@ -1,4 +1,4 @@
-// hidden payload execution via XLL
+// hidden XLL payload execution (svchost loads Excel.Application via COM)
 // read more at https://github.com/optiv/Dent#remote-xll-payload-mode
 DeviceEvents
 | where FileName =~ "excel.exe"
