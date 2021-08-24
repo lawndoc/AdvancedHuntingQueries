@@ -2,7 +2,6 @@
 // read more at https://github.com/optiv/Dent#remote-xll-payload-mode
 DeviceEvents
 | where FileName =~ "excel.exe"
-| where InitiatingProcessParentFileName =~ "svchost.exe"
-| where InitiatingProcessCommandLine !contains "werfault.exe"
-| where InitiatingProcessCommandLine !contains "Dbghost.exe"
-| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine
+| where InitiatingProcessFileName =~ "svchost.exe"
+| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine, ProcessId
+| sort by Timestamp
