@@ -8,12 +8,12 @@ EmailEvents
 // --- End Whitelist --- //
 | summarize FirstEmail = min(Timestamp), LatestEmail = max(Timestamp), Count = count(), Recipients = make_list(RecipientEmailAddress) by
 //--- Uncomment next line to expand each email instance and time of delivery to each recipient ---//
-    //Timestamp, RecipientEmailAddress,
+    //Timestamp, RecipientEmailAddress, EnvelopeSenderAddress = SenderMailFromAddress,
     Subject,
-    DetectionMethods,
+    Threat = ThreatTypes,
+    Reason = extractjson("$.Phish[0]", DetectionMethods),
     HeaderFromAddress = SenderFromAddress,
-    EnvelopeSenderAddress = SenderMailFromAddress,
-    EmailDirection,
     DeliveryAction,
     Attachments = AttachmentCount
+| project-reorder Threat, Subject, Recipients
 | sort by LatestEmail
