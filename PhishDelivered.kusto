@@ -1,7 +1,7 @@
 EmailEvents
-| where ThreatTypes in ('Phish', 'Malware') and EmailAction !in ('Replace attachment', 'Send to quarantine')
+| where ThreatTypes in ('Phish', 'Malware')
+| where EmailAction !in ('Replace attachment', 'Send to quarantine')
 | where EmailDirection == "Inbound"
-| join kind=leftanti EmailPostDeliveryEvents on NetworkMessageId , RecipientEmailAddress
 | where ConfidenceLevel contains "High"
 // --- Whitelist ---//
 //| where SenderFromAddress !contains "@knowbe4.com"  // example whitelist
@@ -15,5 +15,5 @@ EmailEvents
     HeaderFromAddress = SenderFromAddress,
     DeliveryAction,
     Attachments = AttachmentCount
-| project-reorder Threat, Subject, Recipients
+| project-reorder Threat, Subject, HeaderFromAddress, Reason, Recipients
 | sort by LatestEmail
