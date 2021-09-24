@@ -1,0 +1,16 @@
+// Get the top 5 devices whose bat executions have had the most anomalous increase
+let interval = 12h;
+let BatEvents = DeviceEvents
+| where isnotempty(DeviceName)
+| where FileName endswith ".bat";
+BatEvents
+| make-series BatCount = count() on Timestamp from ago(30d) to now() step interval by DeviceName
+| extend (flag, score, baseline) = series_decompose_anomalies(BatCount)
+| mv-expand with_itemindex = FlagIndex flag to typeof(int) // Expand, but this time include the index in the array as FlagIndex
+| where flag == 1  // Once again, filter only to spikes
+| extend SpikeScore = todouble(score[FlagIndex]) // This will get the specific score associated with the detected spike
+| summarize MaxScore = max(SpikeScore) by DeviceName
+| top 5 by MaxScore desc
+| join kind=rightsemi BatEvents on DeviceName // Rejoin top 5 anomalous devices to all their BatEvents
+| summarize BatCount = count() by DeviceName, bin(Timestamp, interval)
+| render timechart
