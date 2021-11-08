@@ -1,7 +1,8 @@
 # AdvancedHuntingQueries
 Microsoft 365 Advanced Hunting Queries written in Kusto Query Language (KQL)
 
-### Try them out right away
+***Try them out right away***
+
 Click on the '🔎' icon to instantly test the query in your Microsoft 365 Security tenant
 
 ## Queries:
