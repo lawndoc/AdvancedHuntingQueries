@@ -1,0 +1,25 @@
+// ENTER INFO ON USER(S) INTO THE BELOW LISTS
+// needs minimum of 1 entry into 1 of the 5 lists
+// you can have multiple per list and use all 5 lists simultaneously
+let Hostnames = dynamic([]);       // sub-word search
+let Usernames = dynamic([]);       // exact string search
+let EmailAddresses = dynamic([]);  // sub-word search
+let SIDs = dynamic([]);            // exact string search
+let AzureAccountIDs = dynamic([]); // exact string search
+// step 1: correlate all hosts and identities
+DeviceInfo
+| distinct DeviceName, LoggedOnUsers
+| project DeviceName, CurrentUsers = parse_json(LoggedOnUsers)
+| mv-apply CurrentUsers on (
+    project DeviceName, User = CurrentUsers.UserName, SID = CurrentUsers.Sid
+)
+| project DeviceName, Username = tostring(User), OnPremSid = tostring(SID)
+| join IdentityInfo on OnPremSid
+// step 2: filter for the given values
+| where DeviceName has_any (Hostnames)
+        or AccountObjectId in (AzureAccountIDs)
+        or Username in (Usernames)
+        or EmailAddress has_any (EmailAddresses)
+        or OnPremSid in (SIDs)
+| extend FullName = strcat(GivenName, " ", Surname)
+| distinct DeviceName, FullName, JobTitle, EmailAddress, Username, OnPremSid, AccountObjectId
