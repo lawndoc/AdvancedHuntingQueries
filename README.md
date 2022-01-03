@@ -1,5 +1,9 @@
 # AdvancedHuntingQueries
-My collection of Microsoft 365 Advanced Hunting Queries written in Kusto Query Language (KQL). This repo includes hotlinks that plug the queries right into your M365 Security tenant. Click on a category to start exploring my hunting queries!
+My collection of Microsoft 365 Advanced Hunting Queries written in Kusto Query Language (KQL).
+
+This repo includes '🔎' icons with hotlinks that plug the queries right into your M365 Security tenant.
+
+Click on a category to start exploring my hunting queries!
 
 ## Query Categories:
 
