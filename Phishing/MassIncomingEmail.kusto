@@ -1,0 +1,7 @@
+EmailEvents
+//--- uncomment the next line and replace example.com with your domain ---//
+//| where SenderFromDomain != "example.com"
+| summarize Recipients = dcount(RecipientEmailAddress) by SenderFromAddress, Subject, AttachmentCount, NetworkMessageId, SendTime = Timestamp
+| where Recipients > 50
+| project-reorder Recipients, Subject
+| sort by SendTime desc
