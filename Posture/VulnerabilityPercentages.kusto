@@ -1,0 +1,25 @@
+// Determines whether each version of every program in your environment is vulnerable, expoloitable, or neither
+// Takes into account how many devices have each version of a program
+// By default, account for all CVE severities
+let Severities = dynamic(["Critical", "High", "Medium", "Low"]);
+// Get all deployed software versions that have at least 1 vulnerability
+let VersionsWithCVEs = DeviceTvmSoftwareVulnerabilities
+| distinct SoftwareName, SoftwareVersion, CveId
+| join kind=leftouter DeviceTvmSoftwareVulnerabilitiesKB on CveId  // preserves same CVE on older versions
+| where VulnerabilitySeverityLevel in (Severities)
+| summarize CVEs = count() by SoftwareName, SoftwareVersion;
+// Get all deployed software versions that have at least 1 exploit
+let VersionsWithExploits = DeviceTvmSoftwareVulnerabilities
+| distinct SoftwareName, SoftwareVersion, CveId
+| join kind=leftouter DeviceTvmSoftwareVulnerabilitiesKB on CveId  // preserves same CVE on older versions
+| where VulnerabilitySeverityLevel in (Severities)
+| where IsExploitAvailable == 1
+| summarize ExploitsAvailable = count() by SoftwareName, SoftwareVersion;
+// Account for # of devices with each software version, bring it all together, and create a pie chart
+DeviceTvmSoftwareInventory
+| summarize Devices = count() by SoftwareName, SoftwareVersion
+| join kind=leftouter VersionsWithCVEs on SoftwareName, SoftwareVersion  // preverves versions without vulnerabilities
+| join kind=leftouter VersionsWithExploits on SoftwareName, SoftwareVersion  // preverves vulnerabilities without exploits
+| extend VulnerabilityStatus = iff(ExploitsAvailable > 0, "CVEs with Exploits", iff(CVEs > 0, "CVEs without Exploits", "No CVEs"))
+| summarize VulnerableSoftwareVersions = sum(Devices) by VulnerabilityStatus
+| render piechart
