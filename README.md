@@ -15,5 +15,8 @@ My collection of Microsoft 365 Advanced Hunting Queries written in Kusto Query L
 ### [Phishing](Phishing)
 - Identify potential phishing emails in your environment
 
+### [Security Posture](Posture)
+- Highlight bad operational security practices
+
 ### [Utilities](Utilities)
 - Useful queries that help with correlation or metrics
