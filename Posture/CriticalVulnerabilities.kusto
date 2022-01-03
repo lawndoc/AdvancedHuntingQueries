@@ -1,0 +1,18 @@
+let VersionsWithCVEs = DeviceTvmSoftwareVulnerabilities
+| distinct SoftwareName, SoftwareVersion, CveId
+| join kind=leftouter DeviceTvmSoftwareVulnerabilitiesKB on CveId  // preserves same CVE on older versions
+| where VulnerabilitySeverityLevel == "Critical"
+| summarize CriticalCVEs = count() by SoftwareName, SoftwareVersion;
+let VersionsWithExploits = DeviceTvmSoftwareVulnerabilities
+| distinct SoftwareName, SoftwareVersion, CveId
+| join kind=leftouter DeviceTvmSoftwareVulnerabilitiesKB on CveId  // preserves same CVE on older versions
+| where VulnerabilitySeverityLevel == "Critical"
+| where IsExploitAvailable == 1
+| summarize ExploitsAvailable = count() by SoftwareName, SoftwareVersion, Exploitable = "Yes";
+DeviceTvmSoftwareInventory
+| summarize Devices = count() by SoftwareName, SoftwareVersion
+| join VersionsWithCVEs on SoftwareName, SoftwareVersion
+| join kind=leftouter VersionsWithExploits on SoftwareName, SoftwareVersion  // preverves vulnerabilities without exploits
+| project SoftwareName, SoftwareVersion, Devices, CriticalCVEs, Exploitable, ExploitsAvailable
+| where CriticalCVEs > 0
+| sort by ExploitsAvailable desc, SoftwareName asc, SoftwareVersion asc

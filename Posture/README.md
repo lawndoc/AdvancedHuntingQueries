@@ -11,6 +11,11 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 - Results probably contain users' passwords in plain text
 - Included file extensions: .doc .docx .xls .xlsx .txt
 
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA-1VTUvDQBB9Z8H_sPSkUFDPomBrD0Xxoige0yRidZtIE1MVf7xvZzfazVcLrSclhNmP2Tdvdt4kGjFyKNzSzpFhihQJ7R1HOR4x5M6Ic4UTvuf0KrgT0t5wNMM1_R_ouUDA8zG9X6GJYNACTOirBWnKlQy72MEncSLOM1lNiGXiV3GuaGe0_YY9n6vxGJJLjDFxywhP3DPoCs9iI_LX9DE4KTnmgrF5RhcYECWVSD8sFJ8DPgovgpHJ6UJGiq_NTbnbLc-nRI4cr6JSjzKvBWsSC6ZqZfbOHGKHYOeXbq6ljqaSPcaeuzxCntZcKWNkxJ3xCcTjwzH1vX1dhHKnCff3sM_5hDE3qemxcNErtDnCG-9XS6Xzf43-KY0uxxgztq-FMyIFEsvE1OJlMY86VV5VVDPO9vXer8X24_VwL3Xpuc5YrYgxUc1tJqKlOfl15b2M91s9XVf96n-O1dw2Y3Z32vpfmk2ZVbuv8Lqv6Oxno37Ly3JXXPX5lXkb7JTZx1v5gvkq6Xf8Fdr1XN9p6rKmLm__A53yPVzSt9F7_q3YdXo6kozCxnso70jRtvlUa2s9vwCjhurNXAkAAA&timeRangeId=week) [Critical Vulnerabilities](CriticalVulnerabilities.kusto)
+- List all software in your environment with Critical CVEs
+- Shows how many devices have each version of the software
+- Indicates whether the Critical CVEs have public exploits
+
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA62STQ6CMBCF39rEOzSu_TmDCZq4MWw8AKFEmiA1FoSFh_fN8KNxpcFMyMDrm68tMxEy3OGQMu-ZC-YdlQwlKgTMMcMDBg1yajc-ZvQdkeCiSgqv_oQrJasMFrjyKzAart1gqXzHkp2t1jkSc2WtqXju0jHMGEL-ldFOpLR0hb8wpp6kIqHqGRuGwUrDsM4ypK7ljQvUrHXaI-nN6-93fqkdemPpC6RKH1Nmg-htQoYTLakf6HDqTHr_GTG5Xp3S-S3fZDJqnY0TJ6LUys_7dZqnZvVksRJzPAEo8phwnAIAAA&timeRangeId=week) [Files With Passwords](FilesWithPasswords.kusto)
 - Files with the substring "password" in the name
 - Results probably contain users' passwords in plain text
