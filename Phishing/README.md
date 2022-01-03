@@ -1,0 +1,15 @@
+# Phishing Hunting Queries
+
+Clicking on the name of the query will bring you to the file for it in this git repo.
+
+***Or try them out right away in your M365 Security tenant:***
+
+Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Query page
+
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAEAJ1TyUoDQRCts-A_DIPnDOhN8CAYUHA5eZZ20pm0s3SYHg2CH--r151JjIFoGNJdXcurV0sKKSSTW3mXTgZIc_HS417iHsRS68RIQ90CcuDZSQWNlRY2B2vAa4DFEKWhR02dx2nwe4CuBLaHr0ce9XuSa2TWOI3xwNS4UzkBq2LHrkg1GWmuEpgd7gqIJnFXP4v7AroZ-RpIg3xStpBb8g84fcJZQdY4zzwZdFq1SRVUzNRDM_vRi7DF8X7kHXtgyFIzNpBLyp5cNxVOmLcDqocU8O7gN9Cz3_Fsf_VN0SI_C3uJd8tKFvTUXjlyaWAPlAKqC2CkdsdaYwXTcX7PyNDIHTDnnFhG-1fCtexBlrwy5uxY67ruHF4DviVel-zM4WqLxL0lWoHTpGmfA2_di2Nz_q1vRcLVDrWsM-xh8t9exI1xvEvYXoDW452PSG-IctyKzQym8pG2LHACcWvOOEflP5FH9m3FztT4R8X5GtRsMTvd-St8GqPZKvbncNS-6jasbrbqcIlTzJJzX165TzrdXL4BRhV_BE4EAAA&runQuery=true&timeRangeId=week) [EmailsWithOAuthRequests](EmailsWithOAuthRequests.kusto)
+- Hunt for potential phishing emails that link to a Microsoft OAuth login
+- OAuth tokens can grant the 3rd party permissions without stealing credentials
+- Logins take place on login.windows.net or login.microsoftonline.com which is less suspicious
+
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAEAI1UW2sTQRQ-z4L_YRqEbGCrPvhaMDQpFRqQtOKDiGyyW7M2m43ZabXij_ebb2b2llkJwy5nzpzLd65zKSSRXLYylyfJZCdaKnkpL-SvKPklG_AO-JTcgTZUAok7eZY96Ar8HDpKIhnLR0jk4G1Ax-CNZQHpLawk1BzLJGh5XmOYyhrWcylp86xlewnJPSQSSBgdg0LztoG2xe293vKegtawpOSnPBJBQilj8xQsM_wNr43oAkfJSD7gtgLvkX5GQUuX1LmHbko8BvcNPpPlLd7XfNf0tmMmR3IN-jtsWItvcJSc8yj5zOxqapss6_rNyHn5PgqfC3O_wlcivinuKd8r-j0LYnkvD6BLWFtB8p28plSBF4VjsWXyGzoFK5M5z12Mx3HMXW2G41F1RCaaClkuWJUD5P7QzxVrY3SaeinWpmAEETo0Z19UjMognLA7btg52YBugniGdS9dxbWTX9f3yEks2S85NPJ6lhrbD-B9q6ONAtLtSWjXaAILK8ycz6bP0yf2Vcn8ZA7ZjlUx1Nb1up8Dw99zClLe7PQYqsmDrb-mlJ80P0s2Kwq27vFPXeWe2FvPLS_e7uEovn7HKnfM_Tjr4YwO5Sh2vWXnq-R-and_v-svetOxcFbDUxJ38N6i7iv54bZD9629J62X8Obsai35XtV7RrkqHphNDV_2LcL8vcIsNrv2i7yVr-Ca-GfQ0p2dtSBnAzplH3W9XtPr_7dDP0-n5GfW6432Xu9KTgN73HsNvTUz6PfDnnh8Lc6JqMTfou1mPw7U7pQsxL0KDc16s7MMAu2mdmjr_AO6LBDpfAcAAA&runQuery=true&timeRangeId=week) [PhishDelivered](PhishDelivered.kusto)
+- Detects high-confidence phishing or malware emails that were delivered to one or more mailboxes
