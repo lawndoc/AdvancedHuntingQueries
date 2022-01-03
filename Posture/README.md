@@ -16,6 +16,11 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 - Shows how many devices have each version of the software
 - Indicates whether the Critical CVEs have public exploits
 
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA7VWwU7bQBCdcyX-weIUJNpgiJA4cEgJQjm0oCRwRYuzCVGxibxOWlA_vm9fdm1DWNODIwuYndl5M7PzdpaudCWS76LFSAFpKbkoSSAv8FtDoyWTKfTP0GTck0DOZIb1XFbcb3dbnYF1BinH3x9EyLEy-JnRcwC0mUPU3OV3X25FsTuW8gTNi6T0KeSb7MkXoqxdfhNIqYwhJcxFy0Uwuz4yMazUlIgW7y-i_ZZHZmQrDiMMkVXEDCPpyD5wEqym8lXOJMb6EPq69liO-IUsYZ_joOUkYImDceJgnDgYJ26I0wtaTqE7KM_U4PRSfApnuJBXnq2V53JP7R-c4QSW1LFPQVoSeYi17UJKBixgsb3ylj60G30CywMkjagRpBfHMc-On8TU9Gzuqs9ZI6vCMTRCdv5enJP3ivzpcHfkvs_Yck7fJlaMGc_wJth74GuackcbseIPYw3or4j6xIhJiddW5IpfQ3ZTwZqztk1_U6BlrpPVFGkresXhiWOXveM3nErFDuqt38E-ObsgF3NgmJ30tn63tyOOiZYRazMd73gCpuWqqy6PgK9QYeHu9W7Ouj5t7dv1CJ81fXK8O89kVMGVndXz1uqs-HQjtzjvXTKp19DXEd9GW1_RcoWnZdQLvr0r2P6nyn3M2i4ytfP_rWXEGboiJ97P0dA09_kduVw8dvht8B6x87iSa3yDGkv6XB0EJv2S__X84s3cZOk1nfIVOHxXTfNL572Mw7NWi3-PGhW60nkTs_n9qnJe83at2E9NH8X31E7R7YwNcP8Bsi6mEuIJAAA&timeRangeId=week) [Endpoint Security Status Report](EndpointStatusReport.kusto)
+- Best practice endpoint configurations for Microsoft Defender for Endpoint deployment
+- Find and fix devices out of compliance
+- Identify holes in your security configuration deployment
+
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA62STQ6CMBCF39rEOzSu_TmDCZq4MWw8AKFEmiA1FoSFh_fN8KNxpcFMyMDrm68tMxEy3OGQMu-ZC-YdlQwlKgTMMcMDBg1yajc-ZvQdkeCiSgqv_oQrJasMFrjyKzAart1gqXzHkp2t1jkSc2WtqXju0jHMGEL-ldFOpLR0hb8wpp6kIqHqGRuGwUrDsM4ypK7ljQvUrHXaI-nN6-93fqkdemPpC6RKH1Nmg-htQoYTLakf6HDqTHr_GTG5Xp3S-S3fZDJqnY0TJ6LUys_7dZqnZvVksRJzPAEo8phwnAIAAA&timeRangeId=week) [Files With Passwords](FilesWithPasswords.kusto)
 - Files with the substring "password" in the name
 - Results probably contain users' passwords in plain text
