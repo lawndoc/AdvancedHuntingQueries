@@ -1,0 +1,15 @@
+//--- enter the FQDN of the phishing url below ---//
+let phishingDomain = "";
+let allowedClicks = DeviceNetworkEvents
+| where RemoteUrl contains phishingDomain
+| distinct DeviceName
+| extend BlockedStatus="No";
+DeviceEvents
+| where ActionType == "BrowserLaunchedToOpenUrl"
+| where RemoteUrl contains phishingDomain
+| extend User=InitiatingProcessAccountUpn
+| summarize Clicks=count() by DeviceName, User
+| join kind=leftouter allowedClicks on DeviceName
+| extend Blocked = iff(BlockedStatus=="", "Yes", "No")
+| project User, Clicks, Blocked, DeviceName
+| sort by Blocked asc, Clicks desc
