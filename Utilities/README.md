@@ -13,5 +13,5 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
     - EmailAddress
     - SID
     - AzureAccountID
-- Query will fill in the fields you don't know
+- Query will fill in the fields you don't know for each unique identity
 - Only needs minimum of 1 value for any 1 field
