@@ -1,4 +1,4 @@
-# General Hunting Queries
+# TTP Hunting Queries
 
 Clicking on the name of the query will bring you to the file for it in this git repo.
 

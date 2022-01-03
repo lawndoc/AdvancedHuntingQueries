@@ -9,7 +9,7 @@ My collection of Microsoft 365 Advanced Hunting Queries written in Kusto Query L
 ### [Exploits](Exploits)
 - Hunt for specific exploits being used in your environment
 
-### [Hunting](Hunting)
+### [TTPs](TTPs)
 - General hunting queries to look for various TTPs
 
 ### [Phishing](Phishing)
