@@ -1,0 +1,4 @@
+IdentityLogonEvents
+| where Timestamp > ago(7d)
+| where LogonType == "LDAP cleartext" and isnotempty(AccountName)
+| summarize Count = count() by DeviceName, AccountName, Application, LogonType
