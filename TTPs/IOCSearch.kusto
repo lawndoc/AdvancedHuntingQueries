@@ -1,0 +1,55 @@
+// ENTER IOCS INTO THE BELOW LIST
+// can be any combination of IPs, domains, filenames, or hashes
+let Search = dynamic(["1.2.3.4", "example.com", "malware.exe"]);
+// search for events in all tables
+let processes = DeviceProcessEvents
+| where FolderPath has_any (Search) or
+        MD5 has_any (Search) or
+        SHA1 has_any (Search) or
+        SHA256 has_any (Search)
+| extend Type = "Process";
+let files = DeviceFileEvents
+| where FolderPath has_any (Search) or
+        MD5 has_any (Search) or
+        SHA1 has_any (Search) or
+        SHA256 has_any (Search)
+| extend Type = "File Operation";
+let netcons = DeviceNetworkEvents
+| where RemoteIP has_any (Search) or
+        RemoteUrl has_any (Search)
+| extend Type = "Network Connection";
+// join with final query
+EmailAttachmentInfo
+| where FileName has_any (Search) or
+        SHA256 has_any (Search)
+| extend Type = "EmailAttachment"
+| join kind=fullouter processes on Timestamp
+| join kind=fullouter files on Timestamp
+| join kind=fullouter netcons on Timestamp
+| project Timestamp=coalesce(Timestamp, Timestamp1, Timestamp2, Timestamp3),
+          DeviceName=coalesce(DeviceName, DeviceName1, DeviceName2),
+          EventType=coalesce(Type, Type1, Type2, Type3),
+          SHA256=coalesce(SHA256, SHA2561, SHA2562),
+          FolderPath=coalesce(FolderPath, FolderPath1),
+          ProcessCommandLine,
+          AccountName,
+          AccountUpn,
+          InitiatingProcessAccountName=coalesce(InitiatingProcessAccountName, InitiatingProcessAccountName1, InitiatingProcessAccountName2),
+          InitiatingProcessAccountUpn=coalesce(InitiatingProcessAccountUpn, InitiatingProcessAccountUpn1, InitiatingProcessAccountUpn2),
+          InitiatingProcessCommandLine=coalesce(InitiatingProcessCommandLine, InitiatingProcessCommandLine1, InitiatingProcessCommandLine2),
+          InitiatingProcessFolderPath=coalesce(InitiatingProcessFolderPath, InitiatingProcessFolderPath1, InitiatingProcessFolderPath2),
+          FileOriginIP,
+          FileOriginUrl,
+          RequestProtocol,
+          RequestSourceIP,
+          RequestAccountName,
+          RemoteIP,
+          RemotePort,
+          RemoteUrl,
+          LocalIP,
+          Protocol,
+          NetworkMessageId,
+          SenderFromAddress,
+          RecipientEmailAddress,
+          MD5=coalesce(MD5, MD51),
+          SHA1=coalesce(SHA1, SHA11),
