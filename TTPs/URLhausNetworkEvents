@@ -1,0 +1,16 @@
+let urlhausRecent = (externaldata(payload_url: string) [@"https://urlhaus.abuse.ch/downloads/csv_online/"] with (format="txt"))
+| where payload_url !startswith "#"
+| project payload_url
+| extend data = parse_csv(payload_url)
+| extend ID = toint(data[0]),
+         DateAdded = todatetime(data[1]),
+         URL = tostring(data[2]),
+         URLStatus = tostring(data[3]),
+         Threat = tostring(data[4]),
+         Tags = tostring(data[5]),
+         urlhausLink = tostring(data[6]),
+         Reporter = tostring(data[7])
+| project-away payload_url, ['data'];
+DeviceNetworkEvents
+| join urlhausRecent on $left.RemoteUrl == $right.URL
+| project Timestamp, Threat, DeviceName, InitiatingProcessAccountUpn, URL, Tags, urlhausLink, Reporter
