@@ -1,0 +1,19 @@
+let interval=24h;
+EmailAttachmentInfo
+| where isnotempty(FileType)
+| where FileType !contains "png"
+| where FileType !contains "jpeg"
+| where FileType !contains "gif"
+| where FileType !contains "html"
+| make-series FileTypeCount = count() default=0 on Timestamp from ago(7d) to now() step interval by FileType
+| extend (flag, score, baseline) = series_decompose_anomalies(FileTypeCount)
+| mv-expand with_itemindex = FlagIndex flag to typeof(int) // Expand, but this time include the index in the array as FlagIndex
+| where flag == 1  // Once again, filter only to spikes
+| extend SpikeScore = todouble(score[FlagIndex]) // This will get the specific score associated with the detected spike
+| summarize MaxScore = max(SpikeScore) by FileType
+| top 5 by MaxScore desc
+| join kind=rightsemi EmailAttachmentInfo on FileType // Rejoin top 5 anomalous FileTypes to all their attachment instances
+| make-series FileTypeCount = count() default=0 on Timestamp from ago(7d) to now() step interval by FileType
+| mv-expand FileTypeCount, Timestamp
+| project  FileType, todatetime(Timestamp), toint(FileTypeCount)
+| render timechart
