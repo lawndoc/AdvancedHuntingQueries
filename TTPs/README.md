@@ -26,5 +26,5 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 - You can manually add additional groups you deem to be sensitive
 
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA42U22rbQBCG57rQd3DcQGxQkp4DKYYUnItAKKWNr0IJqqQmTmxJWNs4gTx8v_0lq0pryWbZ0xz-2ZmdmZkl5qxnv21hM7uxkFNh36BGzFS8EXPA7YFbglyK1MxiVsccWM76CCVjj-2qwjpGq0BiYVM0rm3I_dJOrI8Vx8jhHtsh47ntA_afOiWcI-iHoGa2BGVlo4AWsd5jLRPd20ig9u0HdpbcHZr-3b-QWNhcrx3Bd_Kjz3uG9tJe2JPkb-RZwnm9Nz3bkTchN8fpr4W-vWKukHL4md0qfq4VbSW9imkKr1dHtIx4Lls-CleVr22RHrbgndm4wnJoTPWbg9rKpb0mVkMLpN37b4wll9hnNGL2uIEVVzwH6py9ifqmE3VCbp03kJoZ0kR5uwXKd8k65cpmxHediBf8pf__sM74Lqz3G7BC5Ld504dOnOd1cS79uy1QP3ai-trOVRNlNW_GOxLe-gzfR2KprGzL9UB1v1fj7YH2SWhjMO6x5zvNF2XTUu-6s1PoZfcparu3VQ5396pMErvwEyrf0UE8fw7dezupankkn3fl7bX60UGVU211fFFletkD5vCDf7ImUM00PQqlEagSU_WLqSTLCH-VhUiYBVUWMTI88n5MwE-lWb4qaGRV0JoZwZrf_QN39aNc4AUAAA&timeRangeId=week) [URLhaus Reported Network Connection](URLhausNetworkEvents.kusto)
-- Imports the list of reported URLs from URLhaus
+- Imports the list of reported URLs from [URLhaus](https://urlhaus.abuse.ch/)
 - Searches network events for remote connections matching reported URLs
