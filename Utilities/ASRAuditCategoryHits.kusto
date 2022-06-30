@@ -1,0 +1,17 @@
+DeviceEvents
+| where ActionType startswith 'Asr'
+    and ActionType endswith 'Audited'
+| summarize Count = count() by ActionType
+| sort by Count
+
+// look at hits within a specific category
+DeviceEvents
+//| where ActionType =~ "AsrExecutableOfficeContentAudited"
+//| where ActionType =~ "AsrLsassCredentialTheftAudited"
+//| where ActionType =~ "AsrOfficeChildProcessAudited"
+//| where ActionType =~ "AsrOfficeCommAppChildProcessAudited"
+//| where ActionType =~ "AsrOfficeMacroWin32ApiCallsAudited"
+//| where ActionType =~ "AsrOfficeProcessInjectionAudited"
+//| where ActionType =~ "AsrPsexecWmiChildProcessAudited"
+//| where ActionType =~ "AsrUntrustedExecutableAudited"
+| project DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessFolderPath, ProcessCommandLine
