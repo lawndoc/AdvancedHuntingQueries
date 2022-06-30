@@ -1,12 +1,19 @@
+// top categories with audit hits
 DeviceEvents
 | where ActionType startswith 'Asr'
     and ActionType endswith 'Audited'
 | summarize Count = count() by ActionType
 | sort by Count
 
+// top files generating audit hits
+DeviceEvents
+| where ActionType startswith 'Asr'
+    and ActionType endswith 'Audited'
+| summarize Count = count() by ActionType, FileName, FolderPath
+| sort by Count
+
 // look at hits within a specific category
 DeviceEvents
-//| where ActionType =~ "AsrExecutableOfficeContentAudited"
 //| where ActionType =~ "AsrLsassCredentialTheftAudited"
 //| where ActionType =~ "AsrOfficeChildProcessAudited"
 //| where ActionType =~ "AsrOfficeCommAppChildProcessAudited"
