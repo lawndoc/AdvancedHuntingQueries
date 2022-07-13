@@ -52,4 +52,4 @@ EmailAttachmentInfo
           SenderFromAddress,
           RecipientEmailAddress,
           MD5=coalesce(MD5, MD51),
-          SHA1=coalesce(SHA1, SHA11),
+          SHA1=coalesce(SHA1, SHA11)
