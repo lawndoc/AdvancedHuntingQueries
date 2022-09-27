@@ -1,0 +1,4 @@
+DeviceProcessEvents
+| where FileName =~ "PAD.MachineRegistration.Silent.exe"
+| where ProcessCommandLine contains " -register "
+| where InitiatingProcessFileName != "PAD.Console.Host.exe"

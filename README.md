@@ -10,6 +10,9 @@ Click on a category to start exploring my hunting queries!
 ### [Anomalies](Anomalies)
 - Identify the most significant spikes in various activities
 
+### [Detection Rules](Detection Rules)
+- Kusto queries that can be turned into detection rules to create alerts
+
 ### [Exploits](Exploits)
 - Hunt for specific exploits being used in your environment
 

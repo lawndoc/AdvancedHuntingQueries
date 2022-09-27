@@ -1,0 +1,6 @@
+DeviceNetworkEvents
+| where InitiatingProcessFileName !~ "rclone.exe"
+and (InitiatingProcessVersionInfoCompanyName =~ "https://rclone.org"
+or InitiatingProcessVersionInfoInternalFileName =~ "rclone"
+or InitiatingProcessVersionInfoFileDescription =~ "Rsync for cloud storage"
+or InitiatingProcessVersionInfoProductName =~ "Rclone")

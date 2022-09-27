@@ -1,0 +1,12 @@
+DeviceNetworkEvents
+| where RemoteUrl contains "mega.io" or RemoteUrl contains "mega.co.nz"
+| where InitiatingProcessFileName !~ "chrome.exe"
+and InitiatingProcessFileName !~ "firefox.exe"
+and InitiatingProcessFileName !~ "safari.exe"
+and InitiatingProcessFileName !~ "opera.exe"
+and InitiatingProcessFileName !~ "iexplore.exe"
+and InitiatingProcessFileName !~ "microsoftedge.exe"
+and InitiatingProcessFileName !~ "microsoftedgecp.exe"
+and InitiatingProcessFileName !~ "browser_broker.exe"
+and InitiatingProcessFileName !~ "msedge.exe"
+and InitiatingProcessFileName !~ "brave.exe"

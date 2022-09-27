@@ -1,0 +1,2 @@
+DeviceNetworkEvents
+| where InitiatingProcessFileName =~ "rclone.exe"

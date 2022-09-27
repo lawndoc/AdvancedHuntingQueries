@@ -1,0 +1,32 @@
+let SensitiveGroupNames = pack_array(  // Add any groups that you consider sensitive
+    'Account Operators',
+    'Administrators',
+    'Backup Operators',
+    'Domain Admins',
+    'Domain Controllers',
+    'Enterprise Admins',
+    'Enterprise Read-only Domain Controllers',
+    'Group Policy Creator Owners',
+    'Incoming Forest Trust Builders',
+    'Microsoft Exchange Servers',
+    'Network Configuration Operators',
+    'Power Users',
+    'Print Operators',
+    'Protected Users',
+    'Read-only Domain Controllers',
+    'Replicators',
+    'Schema Admins',
+    'Server Operators'
+);
+IdentityDirectoryEvents
+| where Application == "Active Directory"
+| where ActionType == "Group Membership changed"
+| where DestinationDeviceName != "" // Exclude activites coming AD Sync changes. 
+| extend ToGroup = tostring(parse_json(AdditionalFields).["TO.GROUP"]) // Extracts the group name if action is add enity to a group.
+| extend FromGroup = tostring(parse_json(AdditionalFields).["FROM.GROUP"]) // etracts the group name if action is remove entity from a group.
+| extend Action = iff(isempty(ToGroup), "Remove", "Add") // calculates if the action is Remove or Add
+| extend GroupModified = iff(isempty(ToGroup), FromGroup, ToGroup) // group name that the action was taken on 
+| where GroupModified in~ (SensitiveGroupNames)
+| join kind=leftouter IdentityInfo on $left.TargetAccountUpn == $right.AccountUpn
+| summarize by Timestamp, Action, GroupModified, TargetName=TargetAccountDisplayName, JobTitle, TargetAccountUpn, Actor=AccountDisplayName, ReportId
+| sort by Timestamp desc

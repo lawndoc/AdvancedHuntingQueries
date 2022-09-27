@@ -1,0 +1,9 @@
+DeviceFileEvents
+| where FileName endswith "_BloodHound.zip"
+     or FileName endswith "_computers.json"
+     or FileName endswith "_containers.json"
+     or FileName endswith "_domains.json"
+     or FileName endswith "_gpos.json"
+     or FileName endswith "_groups.json"
+     or FileName endswith "_ous.json"
+     or FileName endswith "_users.json"
