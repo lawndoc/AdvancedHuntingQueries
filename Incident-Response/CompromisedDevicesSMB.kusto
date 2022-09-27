@@ -1,0 +1,9 @@
+let CompromisedDevices = dynamic([""]);
+let SearchWindow = 7d; //Customizable h = hours, d = days
+DeviceNetworkEvents
+| where Timestamp > ago(SearchWindow)
+| where DeviceName has_any (CompromisedDevices)
+     or RemoteUrl has_any (CompromisedDevices)
+| where RemotePort == 445
+| where ActionType == "ConnectionSuccess"
+| where InitiatingProcessFolderPath !~ "C:\\Windows\\System32\\ntoskrnl.exe"

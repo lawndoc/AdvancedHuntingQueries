@@ -16,8 +16,8 @@ Click on a category to start exploring my hunting queries!
 ### [Exploits](Exploits)
 - Hunt for specific exploits being used in your environment
 
-### [TTPs](TTPs)
-- General hunting queries to look for various TTPs and IOCs
+### [Incident Response](Incident-Response)
+- Hunt for known IOCs and activity from compromised hosts
 
 ### [Phishing](Phishing)
 - Identify potential phishing emails in your environment

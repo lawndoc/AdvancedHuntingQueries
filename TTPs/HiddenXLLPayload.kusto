@@ -1,7 +1,0 @@
-// hidden XLL payload execution (svchost loads Excel.Application via COM)
-// read more at https://github.com/optiv/Dent#remote-xll-payload-mode
-DeviceEvents
-| where FileName =~ "excel.exe"
-| where InitiatingProcessFileName =~ "svchost.exe"
-| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine, ProcessId
-| sort by Timestamp
