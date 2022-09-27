@@ -23,4 +23,4 @@ Click on a category to start exploring my hunting queries!
 - Highlight bad operational security practices
 
 ### [Utilities](Utilities)
-- Useful queries that help with correlation or metrics
+- Useful queries that help with identity correlation, ASR rules, metrics, etc.
