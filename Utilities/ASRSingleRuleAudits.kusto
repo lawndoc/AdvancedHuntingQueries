@@ -1,0 +1,20 @@
+// uncomment one line at a time to look at hits within a specific category
+DeviceEvents
+//| where ActionType =~ "AsrAdobeReaderChildProcessAudited"
+//| where ActionType =~ "AsrExecutableEmailContentAudited"
+//| where ActionType =~ "AsrExecutableOfficeContentAudited"
+//| where ActionType =~ "AsrLsassCredentialTheftAudited"
+//| where ActionType =~ "AsrObfuscatedScriptAudited"
+//| where ActionType =~ "AsrOfficeChildProcessAudited"
+//| where ActionType =~ "AsrOfficeCommAppChildProcessAudited"
+//| where ActionType =~ "AsrOfficeMacroWin32ApiCallsAudited"
+//| where ActionType =~ "AsrOfficeProcessInjectionAudited"
+//| where ActionType =~ "AsrPersistenceThroughWmiAudited"
+//| where ActionType =~ "AsrPsexecWmiChildProcessAudited"
+//| where ActionType =~ "AsrRansomwareAudited"
+//| where ActionType =~ "AsrScriptExecutableDownloadAudited"
+//| where ActionType =~ "AsrUntrustedExecutableAudited"
+//| where ActionType =~ "AsrUntrustedUsbProcessAudited"
+//| where ActionType =~ "AsrVulnerableSignedDriverAudited"
+//| where ActionType =~ "ControlledFolderAccessViolationAudited"
+| project DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessFolderPath, ProcessCommandLine

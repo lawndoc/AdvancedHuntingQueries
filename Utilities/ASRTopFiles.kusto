@@ -1,0 +1,6 @@
+DeviceEvents
+| where ActionType startswith 'Asr'
+//     or ActionType startswith 'ControlledFolderAccessViolation'
+    and ActionType endswith 'Audited'
+| summarize Count = count() by ActionType, FileName, FolderPath
+| sort by Count

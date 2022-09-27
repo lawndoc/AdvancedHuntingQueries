@@ -1,0 +1,9 @@
+DeviceEvents
+| where ActionType startswith 'Asr'
+    and ActionType endswith 'Audited'
+| where ActionType contains 'Office'
+| summarize Count = count(), Categories = make_set(ActionType) by DeviceName, OnPremSid=AccountSid
+| join IdentityInfo on OnPremSid
+| project DeviceName, FullName=strcat(GivenName, " ", Surname), JobTitle, Count, Categories
+| distinct DeviceName, FullName, JobTitle, Count, tostring(Categories)
+| sort by Count
