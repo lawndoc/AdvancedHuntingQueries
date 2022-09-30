@@ -6,7 +6,7 @@ Clicking on the name of the query will bring you to the file for it in this git 
 
 Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Query page
 
-### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32340&query=H4sIAAAAAAAAA62W22rbQBCG5zrQdxC-csEt5AC5KA24qZM45GAip7SEXAhbSRwUS7EV2yl5-H4zjqyVbWhgjVjt_rMz_86MVrObSCy5BDKUVEbyJJEk0pIZshjZWAbItQ_kO60vr6AIvYH0pC43UpMM6R19g_ka45SZKpot8Az28RIqZzOefAmVsxFMPRgVf5ItZH5PjXhzx_Pcoi5QD88mji9DuV-gR3AVxQ6-Jzcl6wi_pxv0-YnVdp2cTFitQPpV-hWcOjGo5V4FuV4XeGdFsrth78s1U8Yl-ovnGf2tfJZvtt5P1p_YTovliD6hbyHRnZnzfVTnDdupPCAb0QKkOaPEdOoLqwvbszHMgRzQ9tfaLmsHxtKHc8pMjqb6-VV-SFO6jKo50f_n4xyHck58vhwdOfPkaMlvmh_HCdloenK0ycexN0col54cp0Ry5c0RboDB96vo_vLnCNll_hxtT45Q_njn9Bf_rT-Db0aVo4jkzbSKs7YPCqmAiemXPHrujhfy1ZrWeGee19Evsk2VW1fdVrlv0N6h3gZIh7zr_70FlMwZeilnX0x11vtDFx3l1PobWZ1Xb9wK7vrbNKs5a5c7RfYuXxfbEVoJ2dE4Osg1lw2L5wSebRu34RkYY2RvPa075mHPfBqzi1MYNTLN9JnpxB-0bdrNI5UXO3eu7TagllfMPyOdR13VciNws9Bm9cI2s2znJvsHqH1RNIgJAAA&timeRangeId=week) [Double File Extension](DoubleFileExtension.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA62W22rbQBCG5zrQdxC-csEt5AC5KA24qZM45GAip7SEXAhbSRwUS7EV2yl5-H4zjqyVbWhgjVjt_rMz_86MVrObSCy5BDKUVEbyJJEk0pIZshjZWAbItQ_kO60vr6AIvYH0pC43UpMM6R19g_ka45SZKpot8Az28RIqZzOefAmVsxFMPRgVf5ItZH5PjXhzx_Pcoi5QD88mji9DuV-gR3AVxQ6-Jzcl6wi_pxv0-YnVdp2cTFitQPpV-hWcOjGo5V4FuV4XeGdFsrth78s1U8Yl-ovnGf2tfJZvtt5P1p_YTovliD6hbyHRnZnzfVTnDdupPCAb0QKkOaPEdOoLqwvbszHMgRzQ9tfaLmsHxtKHc8pMjqb6-VV-SFO6jKo50f_n4xyHck58vhwdOfPkaMlvmh_HCdloenK0ycexN0col54cp0Ry5c0RboDB96vo_vLnCNll_hxtT45Q_njn9Bf_rT-Db0aVo4jkzbSKs7YPCqmAiemXPHrujhfy1ZrWeGee19Evsk2VW1fdVrlv0N6h3gZIh7zr_70FlMwZeilnX0x11vtDFx3l1PobWZ1Xb9wK7vrbNKs5a5c7RfYuXxfbEVoJ2dE4Osg1lw2L5wSebRu34RkYY2RvPa075mHPfBqzi1MYNTLN9JnpxB-0bdrNI5UXO3eu7TagllfMPyOdR13VciNws9Bm9cI2s2znJvsHqH1RNIgJAAA&timeRangeId=week) [Double File Extension](DoubleFileExtension.kusto)
 
 **Severity:** Low
 
@@ -18,7 +18,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Investigate the file with the double extension and determine if it is malicious or not. Quarantine the file if you determine it is malware.
 
-### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32216&query=H4sIAAAAAAAAA72STQrCQAyF31rwDqMH6ClUcCMiuJZaWy3-jHSKiohn95voRnClrZR0yMvLyySTgXKdVCrjnGC1zvKqtNUQPNcBJKirjm5yxDZgFeY047-HW3POwXZgGX7MSFE8kOfUh5NrDZKAeXxn-t_kx2gCfgX9dKMxsZLsEnZtCmtNiXnrLvCNQHfWaWq6Tj3drUqGTmRGNMEu2LNKis7qR_WCSLxjAfvSgn4AKbAKRvPqXkebcdqCdmmKR6LeJtR8hb1td-QGrLB9W5H_31oZPTZfb2m8M5z4PouXvzWvje5Ci7Nb2oad3rQfyxt38J4EAAA&timeRangeId=week) [Mega Cloud Storage Exfiltration](MegaExfiltration.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA72STQrCQAyF31rwDqMH6ClUcCMiuJZaWy3-jHSKiohn95voRnClrZR0yMvLyySTgXKdVCrjnGC1zvKqtNUQPNcBJKirjm5yxDZgFeY047-HW3POwXZgGX7MSFE8kOfUh5NrDZKAeXxn-t_kx2gCfgX9dKMxsZLsEnZtCmtNiXnrLvCNQHfWaWq6Tj3drUqGTmRGNMEu2LNKis7qR_WCSLxjAfvSgn4AKbAKRvPqXkebcdqCdmmKR6LeJtR8hb1td-QGrLB9W5H_31oZPTZfb2m8M5z4PouXvzWvje5Ci7Nb2oad3rQfyxt38J4EAAA&timeRangeId=week) [Mega Cloud Storage Exfiltration](MegaExfiltration.kusto)
 
 **Severity:** High
 
@@ -42,7 +42,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Immediate investigation of the activity is advised. Isolate the host and restrict app execution if ransomware is suspected.
 
-### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32222&query=H4sIAAAAAAAAA62RO6vCQBCFTy34H9RKm2svWPkAm8vFwj6sUYMmETfXB4i_3W_HiIopLGSZzeacM3NmZ4eKtVcix_eXKHRQrp3WGoHHykC86qrprAbcCmxHNDSBS2ATRbZnWuoPLrdanjUG3VjdSKnlNHVhb6FyMDk5sX6II9Eylwhsjqb9Qf2Z9eLhQqWgX3AaEKm2Vun05N0vvVdUK-C9euqyXnsJd1-WvYTzJ_es7mNiswtMRuamYhr9iml8w_nuNDSVQ5Fw36JUPXynsCcQx9-i9Lx18m9v4MkJaITvdzq7aebUd-S9T2L6MomOrqI0FPOeAgAA&timeRangeId=week) [Renamed Rclone](RenamedRclone.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA62RO6vCQBCFTy34H9RKm2svWPkAm8vFwj6sUYMmETfXB4i_3W_HiIopLGSZzeacM3NmZ4eKtVcix_eXKHRQrp3WGoHHykC86qrprAbcCmxHNDSBS2ATRbZnWuoPLrdanjUG3VjdSKnlNHVhb6FyMDk5sX6II9Eylwhsjqb9Qf2Z9eLhQqWgX3AaEKm2Vun05N0vvVdUK-C9euqyXnsJd1-WvYTzJ_es7mNiswtMRuamYhr9iml8w_nuNDSVQ5Fw36JUPXynsCcQx9-i9Lx18m9v4MkJaITvdzq7aebUd-S9T2L6MomOrqI0FPOeAgAA&timeRangeId=week) [Renamed Rclone](RenamedRclone.kusto)
 
 **Severity:** High
 
@@ -66,7 +66,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Determine whether the group modification was expected, legitimate activity. If its legitimacy can't be confirmed, lock the account(s) involved in the privilege escalation.
 
-### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32326&query=H4sIAAAAAAAAA62RWwrCMBBF77fgHoILcBGi4pdbkNIUH9im9GFBXLxnIvTHH8FhSAZuDodJslWlh64q6Xv6nb4jqdRoUK-lFnopaNKFrGOFmTuqUJ0ToyP0xMkAGbTSSRuoREUd2MfMrPWEaTk3c5gr4f7dXMLXWEYym6rHe2NP0P-b7eYFaePsjnnqj9nPeuYdkquvy7_VOjrN52cz1_fPvAFVokLUygIAAA&timeRangeId=week) [SharpHound Output Detected](SharpHoundOutput.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA62RWwrCMBBF77fgHoILcBGi4pdbkNIUH9im9GFBXLxnIvTHH8FhSAZuDodJslWlh64q6Xv6nb4jqdRoUK-lFnopaNKFrGOFmTuqUJ0ToyP0xMkAGbTSSRuoREUd2MfMrPWEaTk3c5gr4f7dXMLXWEYym6rHe2NP0P-b7eYFaePsjnnqj9nPeuYdkquvy7_VOjrN52cz1_fPvAFVokLUygIAAA&timeRangeId=week) [SharpHound Output Detected](SharpHoundOutput.kusto)
 
 **Severity:** High
 
@@ -78,7 +78,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Investigate the process that created these files and respond appropriately to any discovered threats.
 
-### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32327&query=H4sIAAAAAAAAA3WP3QqCQBCFz3XQO2ze5xt0EVoUVEQ9gZiUkAquVBfRs_c5GSQVy-weZvb8TKxMF-VKebeqVRnynBn9TKUa8FAD3eV01YleTTnNYZ1BGyUqrDPRgztAZ6pYodZMUhg5Kpl21BHsUayZNOCKSah9p9R6hbw3Kvjp2U8YgQtOAvOgVefjmFemlVjHWyansWm8E7SK7o_LElZu-V4pS1h95-_dR2z_uXtkGTx3-y_UAuR7-z0BPRLZYXoBAAA&timeRangeId=week) [Silent Power Automate Registration](SilentPARegistration.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA3WP3QqCQBCFz3XQO2ze5xt0EVoUVEQ9gZiUkAquVBfRs_c5GSQVy-weZvb8TKxMF-VKebeqVRnynBn9TKUa8FAD3eV01YleTTnNYZ1BGyUqrDPRgztAZ6pYodZMUhg5Kpl21BHsUayZNOCKSah9p9R6hbw3Kvjp2U8YgQtOAvOgVefjmFemlVjHWyansWm8E7SK7o_LElZu-V4pS1h95-_dR2z_uXtkGTx3-y_UAuR7-z0BPRLZYXoBAAA&timeRangeId=week) [Silent Power Automate Registration](SilentPARegistration.kusto)
 
 **Severity:** Medium
 
