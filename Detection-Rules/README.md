@@ -14,7 +14,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **MITRE techniques:** N/A
 
-**Description:** A file was detected with two extensions at the end of the file name, with the true extension being an executable file type. This could indicate an attempt to trick a user into thinking an executable file is some type of document or media.
+**Description:** A file was detected with two extensions at the end of the file name, with the final extension being an executable file type. This could indicate an attempt to trick a user into thinking an executable file is some type of document or media.
 
 **Recommended actions:** Investigate the file with the double extension and determine if it is malicious or not. Quarantine the file if you determine it is malware.
 
