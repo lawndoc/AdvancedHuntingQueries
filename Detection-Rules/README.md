@@ -6,6 +6,18 @@ Clicking on the name of the query will bring you to the file for it in this git 
 
 Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Query page
 
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32340&query=H4sIAAAAAAAAA62W22rbQBCG5zrQdxC-csEt5AC5KA24qZM45GAip7SEXAhbSRwUS7EV2yl5-H4zjqyVbWhgjVjt_rMz_86MVrObSCy5BDKUVEbyJJEk0pIZshjZWAbItQ_kO60vr6AIvYH0pC43UpMM6R19g_ka45SZKpot8Az28RIqZzOefAmVsxFMPRgVf5ItZH5PjXhzx_Pcoi5QD88mji9DuV-gR3AVxQ6-Jzcl6wi_pxv0-YnVdp2cTFitQPpV-hWcOjGo5V4FuV4XeGdFsrth78s1U8Yl-ovnGf2tfJZvtt5P1p_YTovliD6hbyHRnZnzfVTnDdupPCAb0QKkOaPEdOoLqwvbszHMgRzQ9tfaLmsHxtKHc8pMjqb6-VV-SFO6jKo50f_n4xyHck58vhwdOfPkaMlvmh_HCdloenK0ycexN0col54cp0Ry5c0RboDB96vo_vLnCNll_hxtT45Q_njn9Bf_rT-Db0aVo4jkzbSKs7YPCqmAiemXPHrujhfy1ZrWeGee19Evsk2VW1fdVrlv0N6h3gZIh7zr_70FlMwZeilnX0x11vtDFx3l1PobWZ1Xb9wK7vrbNKs5a5c7RfYuXxfbEVoJ2dE4Osg1lw2L5wSebRu34RkYY2RvPa075mHPfBqzi1MYNTLN9JnpxB-0bdrNI5UXO3eu7TagllfMPyOdR13VciNws9Bm9cI2s2znJvsHqH1RNIgJAAA&timeRangeId=week) [Double File Extension](DoubleFileExtension.kusto)
+
+**Severity:** Low
+
+**Category:** Malware
+
+**MITRE techniques:** N/A
+
+**Description:** A file was detected with two extensions at the end of the file name, with the true extension being an executable file type. This could indicate an attempt to trick a user into thinking an executable file is some type of document or media.
+
+**Recommended actions:** Investigate the file with the double extension and determine if it is malicious or not. Quarantine the file if you determine it is malware.
+
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32216&query=H4sIAAAAAAAAA72STQrCQAyF31rwDqMH6ClUcCMiuJZaWy3-jHSKiohn95voRnClrZR0yMvLyySTgXKdVCrjnGC1zvKqtNUQPNcBJKirjm5yxDZgFeY047-HW3POwXZgGX7MSFE8kOfUh5NrDZKAeXxn-t_kx2gCfgX9dKMxsZLsEnZtCmtNiXnrLvCNQHfWaWq6Tj3drUqGTmRGNMEu2LNKis7qR_WCSLxjAfvSgn4AKbAKRvPqXkebcdqCdmmKR6LeJtR8hb1td-QGrLB9W5H_31oZPTZfb2m8M5z4PouXvzWvje5Ci7Nb2oad3rQfyxt38J4EAAA&timeRangeId=week) [Mega Cloud Storage Exfiltration](MegaExfiltration.kusto)
 
 **Severity:** High

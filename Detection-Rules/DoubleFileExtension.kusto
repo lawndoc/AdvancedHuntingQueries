@@ -1,0 +1,26 @@
+let normalExtensions = dynamic(["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "accd",
+                                "rtf", "txt", "csv", "png", "jpg", "jpeg", "gif", "raw",
+                                "mp3", "avi", "midi", "mov", "mp4", "mpeg", "mpeg2", "mpeg3",
+                                "mpg", "ogg", "zip"]);
+DeviceFileEvents
+| where strlen(FileName) > 7
+| where FileName endswith ".BAT"
+     or FileName endswith ".CMD"
+     or FileName endswith ".CPL"
+     or FileName endswith ".EXE"
+     or FileName endswith ".HTA"
+     or FileName endswith ".IMG"
+     or FileName endswith ".ISO"
+     or FileName endswith ".JAR"
+     or FileName endswith ".JS"
+     or FileName endswith ".JSE"
+     or FileName endswith ".MDE"
+     or FileName endswith ".MSC"
+     or FileName endswith ".MSI"
+     or FileName endswith ".SYS"
+     or FileName endswith ".VB"
+     or FileName endswith ".VBE"
+     or FileName endswith ".VBS"
+| extend SplitName = split(FileName, ".", -1)
+| where SplitName[-2] in (normalExtensions)
+| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA1, InitiatingProcessCommandLine, InitiatingProcessAccountUpn, RequestAccountName, DeviceId, ReportId
