@@ -1,10 +1,15 @@
-# TTP Hunting Queries
+# Incident Response Hunting Queries
 
 Clicking on the name of the query will bring you to the file for it in this git repo.
 
 ***Or try them out right away in your M365 Security tenant:***
 
 Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Query page
+
+### 🔎 [Baseline Comparison](BaselineComparison.kusto)
+- Performs an artifact comparison between known good hosts and known bad hosts
+- The following datasets are returned: Alerts, Connected Networks, File Creations, Image Loads, Logons, Network Communications, Process Creations, Powershell Commands, Registry Events, Raw IP Connection Events
+- 🔎 does not have a hotlink because this query is too long for Microsoft to encode in a URL
 
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32296&query=H4sIAAAAAAAAA6WSW0vDQBCFz7Pgf4h9asEL3lAsClIVfJFiKz6oyJoGW0zT0mytivjb_XaSSpQKggy7s5mZc-ZMdlMl8orU0khDjTUxP1BOvKcT9me-YnxO1SGrp1dlclYVq64b1TQlOyC2plTb2tK-NoneqaGmlrVEtOjSwTt6xOrrGkQG20izknmPryZ-A2sZpy_VvIF6MJYIZFHdJzeFK9eqqZqrc-jLrWtV_YUpmIGZ6EmnxBO6-7LyHeQMxoRs6NEFNbSZvU06JnbEcnqEof7rHI2FbN91OGMO-h389-wZiiNY_3IHRYfoy8I8kS7JDTl7_BWR9J_8Pyeo8retp7f_Hf74Dra7EHUMp4d5hIIuGsYWLVA1U5NhSaWqw43GpZKcmkWs59QNDOFsz7iTts00x51xTpksINpWFd7Mij7Kvge6xar3llukYy_H26zhFYdYZm8w581MOKdaJ_vCqukTOfmNtToDAAA&timeRangeId=week) [Compromised Devices SMB Traffic](CompromisedDevicesSMB.kusto)
 - Fill given list with known compromised hosts
