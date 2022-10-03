@@ -30,7 +30,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Immediate investigation of the activity is advised. Isolate the host and restrict app execution if ransomware is suspected.
 
-### [🔎]() [Rclone](Rclone.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAAx2MQQqDQBAE6xzwD-ID_IE3E_AS_ILIEpdEF1Q0h-DbUyxDz0DXdLcEDiKj96l2ThIrb-76gUVno-DGj1I26a2qpJNFaWTIe-FFL0u5a3Meup_cOzDnTMPlrvwaJclMoFZfVfEHylBSLowAAAA&timeRangeId=week) [Rclone](Rclone.kusto)
 
 **Severity:** Medium
 
