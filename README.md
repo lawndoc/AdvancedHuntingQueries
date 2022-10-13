@@ -10,6 +10,9 @@ Click on a category to start exploring my hunting queries!
 ### [Anomalies](Anomalies)
 - Identify the most significant spikes in various activities
 
+### [ASR](ASR)
+- Queries that help you build your [Attack Surface Reduction](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction) policies
+
 ### [Detection Rules](Detection-Rules)
 - Kusto queries that can be turned into detection rules to create alerts
 
@@ -26,4 +29,4 @@ Click on a category to start exploring my hunting queries!
 - Highlight bad operational security practices
 
 ### [Utilities](Utilities)
-- Useful queries that help with identity correlation, ASR rules, metrics, etc.
+- Useful queries that help with identity correlation, metrics, policy building, etc.

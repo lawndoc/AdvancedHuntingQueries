@@ -1,0 +1,18 @@
+// This query identifies crashing processes based on werfault parameters
+// This query was heavily modified from https://github.com/Azure/Azure-Sentinel/tree/master/Hunting%20Queries/Microsoft%20365%20Defender/General%20queries/Crashing%20Applications.yaml
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName =~ 'werfault.exe'
+| project CrashTime = Timestamp, DeviceId, WerFaultCommand = ProcessCommandLine, CrashProcessId = extract("-p ([0-9]{1,5})", 1, ProcessCommandLine) 
+| join kind= inner hint.strategy=shuffle DeviceProcessEvents on DeviceId
+| where CrashProcessId == ProcessId and Timestamp between (datetime_add('day',-1,CrashTime) .. CrashTime)
+| project-away ActionType
+| project-rename ProcessStartTimestamp = Timestamp
+| summarize DeviceCrashes = count(), LastCrashTimestamp = max(ProcessStartTimestamp) by FileName, DeviceName
+| sort by DeviceCrashes
+| summarize TotalCrashes = sum(DeviceCrashes),
+            TotalDevices = dcount(DeviceName),
+            DeviceCrashCounts = make_list(pack(DeviceName, DeviceCrashes)),
+            LastCrashPerDevice = make_list(pack(DeviceName, LastCrashTimestamp))
+            by FileName
+| sort by TotalCrashes
