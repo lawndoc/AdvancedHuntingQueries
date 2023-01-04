@@ -101,3 +101,15 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 **Description:** An endpoint has contacted a URL that has been reported as malicious to UrlHaus.
 
 **Recommended actions:** Investigate the cause of the activity and look for related events.
+
+### [🔎]() [XLL Dropper Malware](XLLDropper.kusto)
+
+**Severity:** High
+
+**Category:** Malware
+
+**MITRE techniques:** N/A
+
+**Description:** An XLL file was discovered followed by a network connection by the Excel.Application COM object. This may indicate that the XLL file was a dropper malware.
+
+**Recommended actions:** Investigate the XLL file and URL of the network connection. Quarantine the device if malicious activity is suspected.

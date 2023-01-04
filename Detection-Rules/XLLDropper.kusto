@@ -1,0 +1,18 @@
+// XLL file event followed by Excel.Application COM object making network connections
+// Could indicate the presense of XLL dropper malware
+// read more at https://github.com/optiv/Dent#remote-xll-payload-mode
+let timeframe = 30d;
+DeviceFileEvents
+| where Timestamp > ago(timeframe)
+| where FileName endswith ".xll"
+| where FolderPath !endswith "\\Library\\Analysis\\ANALYS32.XLL"
+| project DeviceId, DeviceName, FileName, FolderPath, Start=Timestamp, ReportId
+| join kind=inner (
+    DeviceNetworkEvents
+    | where Timestamp > ago(timeframe)
+    | where InitiatingProcessFileName =~ "excel.exe"
+    | where InitiatingProcessParentFileName =~ "svchost.exe"
+    | project DeviceName, RemoteUrl, RemotePort, ActionType, Username=InitiatingProcessAccountName, Email=InitiatingProcessAccountUpn, End=Timestamp
+    ) on DeviceName
+| where (End - Start) between (0min .. 5min)
+| extend Timestamp=Start
