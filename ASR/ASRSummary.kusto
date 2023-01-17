@@ -23,6 +23,9 @@ DeviceEvents
 | extend RuleGuid = tolower(tostring(parsejson(AdditionalFields).RuleId))
 | extend IsAudit = parse_json(AdditionalFields).IsAudit
 | project DeviceName, RuleGuid, DeviceId, IsAudit
-| join kind = leftouter (AsrDescriptionTable | project RuleGuid = tolower(RuleGuid), RuleDescription) on RuleGuid
-| summarize MachinesWithAuditEvents = dcountif(DeviceId,IsAudit==1), MachinesWithBlockEvents = dcountif(DeviceId, IsAudit==0), AllEvents=count() by RuleDescription, RuleGuid
+| join kind = fullouter (
+    AsrDescriptionTable
+    | project RuleGuid = tolower(RuleGuid), RuleDescription
+) on RuleGuid
+| summarize MachinesWithAuditEvents = dcountif(DeviceId,IsAudit==1), MachinesWithBlockEvents = dcountif(DeviceId, IsAudit==0), AllEvents=iff(count()==1, 0, count()) by RuleDescription, RuleGuid=RuleGuid1
 | sort by MachinesWithBlockEvents, MachinesWithAuditEvents, AllEvents
