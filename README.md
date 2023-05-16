@@ -30,3 +30,35 @@ Click on a category to start exploring my hunting queries!
 
 ### [Utilities](Utilities)
 - Useful queries that help with identity correlation, metrics, policy building, etc.
+
+---
+
+## Crafting your own queries
+
+### Getting started
+
+To get better at KQL, the best starting place is to just explore the data available to you. By exploring the data, your curiosity can lead you down rabbit holes of "how can I find this?" It also helps you understand the data. You can't make your own hunting queries if you don't know what information you have available to you.
+
+Choose a table like `DeviceEvents` and take a sample of just 10 random events with `take 10`. This will give you an idea of what data is in that table.
+
+```
+DeviceEvents
+| take 10
+```
+
+I find the `distinct` operator useful for identifying the values I can expect to find in a specific column. That will give me an idea of the ways that I can filter out data or only show specific things.
+
+```
+DeviceEvents
+| distinct ActionType
+```
+
+When troubleshooting a query that isn't giving you want you want, the first thing you need to do is identify *which line* is wrong. Injecting `take 10` or `where` and then a __blank line__ will allow you to check for values you would expect to see or not see.
+
+```
+DeviceProcessEvents
+| where ProcessCommandLine contains "iex"
+| take 10  // the blank line below will end this 3-line query
+
+| summarize Count = count() by InitiatingProcessFileName  // this line won't execute because of the blank line above
+```
