@@ -1,16 +1,33 @@
+// Globally Rare Service Executable
+// Matches service executables to their file info and looks at global prevalence
 let PrevalenceThreshold = 1000; // adjust as needed
 DeviceEvents
 | where ActionType == "ServiceInstalled"
+| where FileName != ""  // Defender not capturing service executable sometimes -- needs investigation
 //-- false positives
-//| where FileName !contains "exampleexclusion.exe"
+| where not (
+    (FileName startswith "svchost.exe -k "  // lots of these
+    or FileName == "CredentialEnrollmentManager.exe")  // Windows internal keychain
+    and InitiatingProcessFileName == "svchost.exe")
+| where not (
+    FileName == "DBUtilDrv2.sys"  // Dell driver service
+    and InitiatingProcessFileName == "drvinst.exe")
+| where not (
+    FileName == "Microsoft.Management.Services.CloudManagedDesktop.Agent.exe"  // Intune related
+    and FolderPath == "C:\\Program Files\\Microsoft Cloud Managed Desktop Extension\\CMDExtension")
+| where InitiatingProcessFileName != "msmpeng.exe"  // Defender Antivirus
 //-- END false positives
 | extend AdditionalFields = todynamic(AdditionalFields)
 | extend ServiceName = tostring(AdditionalFields.["ServiceName"])
 | extend ServiceAccount = tostring(AdditionalFields.["ServiceAccount"])
 | extend ServiceStartType = tostring(AdditionalFields.["ServiceStartType"])
-| join kind=inner DeviceFileEvents on FileName
-| where SHA2561 != "" // Defender not capturing hashes ~10% of the time for some reason? Needs investigation
-| summarize Count = count(), LastSeenTimestamp = max(Timestamp), Devices = make_set(DeviceName) by FileName, FolderPath, SHA256=SHA2561, ServiceName, ServiceAccount, ServiceStartType
+| distinct DeviceName, FileName, FolderPath, ServiceName, ServiceAccount, ServiceStartType
+| join kind=inner (
+    DeviceFileEvents
+    | where ActionType != "FileDeleted"
+    ) on DeviceName, FileName, FolderPath
+| where SHA256 != "" // Defender not capturing hashes ~10% of the time for some reason? Needs investigation
+| summarize Count = count(), LastSeenTimestamp = max(Timestamp), Devices = make_set(DeviceName) by FileName, SHA256, ServiceName, ServiceAccount, ServiceStartType
 | invoke FileProfile("SHA256")
 | project-reorder LastSeenTimestamp, ServiceName, GlobalPrevalence
 | where GlobalPrevalence < PrevalenceThreshold
