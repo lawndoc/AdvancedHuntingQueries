@@ -1,0 +1,66 @@
+//----------------------------------------------------------------------------------------------
+// This query identifies employees that are potentially leaving the company.
+// INSTRUCTIONS:
+// Employees with a high total Count are spending a lot of time job or house hunting, or both.
+// The House/Job Ratio (HJR) indicates how you should interpret each employee's activity.
+// Employees with a LOW  House/Job Ratio are likely early in their job search.
+// Employees with a HIGH House/Job Ratio are either just looking at houses or are leaving soon.
+// Use Confidence (seen applying for jobs) when considering employees with a HIGH HJR.
+// Track this list over time to identify employees that tranistion from a LOW HJR to a HIGH HJR.
+//-----------------------------------------------------------------------------------------------
+let identities = DeviceInfo
+| distinct DeviceName, LoggedOnUsers
+| project DeviceName, CurrentUsers = parse_json(LoggedOnUsers)
+| mv-apply CurrentUsers on (
+    project DeviceName, User = CurrentUsers.UserName, SID = CurrentUsers.Sid
+)
+| project DeviceName, Username = tostring(User), OnPremSid = tostring(SID)
+| join kind=inner IdentityInfo on OnPremSid;
+let HouseHunters = DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where RemoteUrl contains "zillow"
+     or RemoteUrl contains "realtor"
+     or RemoteUrl contains "realestate"
+     or RemoteUrl contains "realty"
+     or RemoteUrl contains "homes"
+     or RemoteUrl contains "homefinder"
+     or RemoteUrl contains "mortgage"
+| where RemoteUrl !contains "funeral" // funeral homes
+| where RemoteUrl !contains "qualtrics.com" // tracker
+| where RemoteUrl !contains "sasinator.realestate.com.au" // seems to be a tracker
+| summarize RealtyCount=count(), RealtyUrls=make_set(RemoteUrl) by DeviceName;
+let JobHunters = DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where RemoteUrl contains "jobs"
+     or RemoteUrl contains "careers"
+     or RemoteUrl contains "glassdoor"
+     or RemoteUrl contains "indeed"
+     or RemoteUrl contains "ziprecruiter"
+     or RemoteUrl contains "simplyhired"
+     or RemoteUrl contains "monster"
+     or RemoteUrl contains "smartr.me"
+     or RemoteUrl contains ".wd5.myworkdayjobs.com"
+//| where RemoteUrl !contains "your-company" // org-specific subdomains
+| where RemoteUrl !contains "pxl" // tracking pixel, doesn't indicate site visit
+| where RemoteUrl !contains "passwordmonster"
+| where RemoteUrl !contains "markdownmonster"
+| where RemoteUrl !contains "optinmonster"
+| summarize JobCount=count(), JobUrls=make_set(RemoteUrl) by DeviceName;
+JobHunters
+| join kind=leftouter HouseHunters on DeviceName
+| join identities on DeviceName
+| extend Count = iff(RealtyCount != "", JobCount + RealtyCount, JobCount)
+| extend HouseJobRatio = iff(RealtyCount != "", round(todecimal(RealtyCount)/todecimal(JobCount), 2), round(todecimal(0), 2))
+| extend IsRecruiter = JobTitle has_any("Human Resources", "HR", "Talent Acquisition", "Recruit", "Hiring")
+| extend Confidence = iff(JobUrls has_any("apply", "myjobs", "resume", "messages", "mail") and not(IsRecruiter),
+                          "High",
+                          "Low")
+// Arbitrary ranking to help sort, risk x2 if HJR >= 1, risk x10 if Confidence is High
+// There is no max risk score, it's just relative
+| extend Risk = todecimal(Count)/100
+                 * iff(HouseJobRatio >= 1, 2, 1)
+                 * iff(Confidence == "High", 10, 1)
+// Exclude recruiters and hiring managers unless they are likely house hunting -- this cut 57/65 people with those roles when added
+| where not(JobTitle has_any("Manager", "Director", "Human Resources", "HR", "Talent Acquisition", "Recruit", "Hiring") and HouseJobRatio <= 0.1)
+| summarize by Risk, FullName=strcat(GivenName," ",Surname), JobTitle, Count, HouseJobRatio, Confidence, Email=AccountUpn, tostring(JobUrls), tostring(RealtyUrls), DeviceName
+| sort by Risk, Count
