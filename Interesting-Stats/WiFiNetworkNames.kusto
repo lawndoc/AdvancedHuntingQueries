@@ -1,0 +1,6 @@
+DeviceNetworkInfo
+| where ConnectedNetworks != ""
+| extend NetworkName = tostring(parse_json(ConnectedNetworks)[0]["Name"])
+//| where NetworkName !contains "Company WiFi"  // your corporate network
+| distinct DeviceName, NetworkName
+| sort by NetworkName asc

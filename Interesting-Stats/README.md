@@ -28,3 +28,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 - Identify people who spend the most time browsing social media sites
 - Looks for Facebook, Twitter, Reddit, and LinkedIn by default
+
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA42RzWrDQAyE51zIO6x9SqCQvkBPCYFecs0hlOA4bv7Ipqzdn0AePp9U3FKDIQhp1yNpNFpPVelTe5Wcc7zRl85KOupFUW_cB3rQVQF8Rz7hQRPwiFX0NcRNp7emJtMzMcdahkrfXh2pD52OuQqdnNu6GtCamFAWtdVQ7-QTWKWVDpw2f3iHjpGWetIrMf-dkfM9clVjrLtbn66MGTatATFVtW9nCk6uLuoCsiA3w3PuwfkD-FkfsAVnSFRbLFxxcPV_89q32sBhL2CTbLeg6b8_9aPqsVdvy1M7bv1r19e3XUFlqRtX0LvDDgIAAA&timeRangeId=week) [WiFi Network Names](WiFiNetworkNames.kusto)
+
+- See all the WiFi network names that your devices are connected to
