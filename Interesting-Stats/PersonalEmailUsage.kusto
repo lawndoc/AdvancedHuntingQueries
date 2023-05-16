@@ -1,0 +1,19 @@
+// This query was updated from https://github.com/Azure/Azure-Sentinel/tree/master/Hunting%20Queries/Microsoft%20365%20Defender/General%20queries/insider-threat-detection-queries%20(5).yaml
+// --------------------------------------------------------------------------------------------------------------------------- //
+// Personal Email Account
+// This query searches for connections to specific webmail URLs
+let webmailURLs = pack_array ("mail.google.com", "mail.yahoo.com", "mail.protonmail.com"); // Change or append additional webmail URLs
+let identities = DeviceInfo
+| distinct DeviceName, LoggedOnUsers
+| project DeviceName, CurrentUsers = parse_json(LoggedOnUsers)
+| mv-apply CurrentUsers on (
+    project DeviceName, User = CurrentUsers.UserName, SID = CurrentUsers.Sid
+)
+| project DeviceName, Username = tostring(User), OnPremSid = tostring(SID)
+| join kind=inner IdentityInfo on OnPremSid;
+DeviceNetworkEvents 
+| where Timestamp > ago(30d)
+| where RemoteUrl has_any (webmailURLs)
+| join kind=inner identities on DeviceName
+| summarize Connections=count(), URLs=makeset(RemoteUrl) by DeviceName, Username=InitiatingProcessAccountName, EmailAddress
+| sort by Connections desc
