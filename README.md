@@ -7,43 +7,43 @@ Click on a category to start exploring my hunting queries!
 
 ## Query Categories:
 
-### [Anomalies](Anomalies)
+### [📈 Anomalies](Anomalies)
 
 - Identify the most significant spikes in various activities
 
-### [ASR](ASR)
+### [🛡️ ASR Rules](ASR)
 
 - Queries that help you build your [Attack Surface Reduction](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction) policies
 
-### [Detection Rules](Detection-Rules)
+### [⚠️ Detection Rules](Detection-Rules)
 
 - Kusto queries that can be turned into detection rules to create alerts
 
-### [Exploits](Exploits)
+### [💣 Exploits](Exploits)
 
 - Hunt for specific exploits being used in your environment
 
-### [Incident Response](Incident-Response)
+### [🕵️ Incident Response](Incident-Response)
 
 - Hunt for known IOCs and activity from compromised hosts
 
-### [Phishing](Phishing)
+### [🎣 Phishing](Phishing)
 
 - Identify potential phishing emails in your environment
 
-### [Rough Drafts](Rough-Drafts)
+### [📝 Rough Drafts](Rough-Drafts)
 
 - Detection rules I've written that are useful for hunting but not ready to generate alerts
 
-### [Security Posture](Posture)
+### [🏰 Security Posture](Posture)
 
 - Highlight bad operational security practices
 
-### [User Behavior](User-Behavior)
+### [🧑 User Behavior](User-Behavior)
 
 - Queries related to user activity -- not all of them are relevant to security
 
-### [Utilities](Utilities)
+### [🛠️ Utilities](Utilities)
 
 - Useful queries that help with identity correlation, metrics, policy building, etc.
 
