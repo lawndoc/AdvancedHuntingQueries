@@ -1,0 +1,62 @@
+// Adapted from Florian Roth's "God Mode Sigma Rule"
+// ref: https://gist.github.com/Neo23x0/811db09add59068a7a80273d7e5f6e0f
+let wkstnSuspiciousParents = dynamic(["winword.exe", "excel.exe", "powerpnt.exe", "mspub.exe", "visio.exe", "outlook.exe"]);
+let wkstnSuspiciousChildren = dynamic(["cmd.exe", "powershell.exe", "pwsh.exe", "wscript.exe", "cscript.exe", "schtasks.exe", "scrcons.exe", "regsvr32.exe", "hh.exe", "wmic.exe", "mshta.exe", "msiexec.exe", "forfiles.exe"]);
+let srvrSuspiciousParents = dynamic(["apache", "tomcat", "w3wp.exe", "php-cgi.exe", "nginx.exe", "httpd.exe"]);
+DeviceProcessEvents
+        // powershell
+| where ProcessCommandLine contains " -NoP "
+     or ProcessCommandLine contains "-W hidden"
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " JAB")
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " SUVYI")
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " SQBFAFgA")
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " aWV4I")
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " IAB")
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " PAA")
+     or (ProcessCommandLine contains " -e" and ProcessCommandLine contains_cs " aQBlAHgA")
+     or ProcessCommandLine contains ".downloadstring("
+     or ProcessCommandLine contains ".downloadfile("
+     or ProcessCommandLine contains ";iex("
+     // certutil
+     or ProcessCommandLine contains " -decode "
+     or ProcessCommandLine contains " /decode "
+     // procdump
+     or ProcessCommandLine contains " -ma "
+     // mimikatz
+     or ProcessCommandLine contains " sekurlsa"
+     or ProcessCommandLine contains " p::d "
+     // other process dump
+     or ProcessCommandLine contains " comsvcs.dll,MiniDump"
+     or ProcessCommandLine contains " comsvcs.dll,#24"
+     or ProcessCommandLine contains " comsvcs.dll Minidump"
+     or ProcessCommandLine contains " comsvcs.dll #24"
+     or ProcessCommandLine contains " comsvcs `#"
+     or ProcessCommandLine contains " comsvcs #"
+     or ProcessCommandLine contains " comsvcs MiniDump"
+     or ProcessCommandLine contains ".dmp full"
+     // rubeus
+     or ProcessCommandLine contains "/ticket:"
+     // misc
+     or ProcessCommandLine contains "vssadmin delete shadows"
+     or ProcessCommandLine contains "reg SAVE HKLM\\SAM"
+     or ProcessCommandLine contains "Microsoft\\Windows\\CurrentVersion\\Run"
+     // suspicious child processes
+     or (InitiatingProcessFileName in~ (wkstnSuspiciousParents) and FileName in~ (wkstnSuspiciousChildren))
+     or (InitiatingProcessFileName has_any (srvrSuspiciousParents)
+        and (ProcessCommandLine contains "whoami"
+          or ProcessCommandLine contains "net user "
+          or ProcessCommandLine contains "ping -n "
+          or ProcessCommandLine contains "systeminfo"
+          or ProcessCommandLine contains "&cd&echo"
+          or ProcessCommandLine contains "cd /d "))
+     // whoami as SYSTEM
+     or (ProcessCommandLine contains "whoami" and AccountDomain contains "AUTHORI")
+// Exclusions
+| where not(FileName =~ "cmd.exe" and InitiatingProcessFileName =~ "excel.exe")
+| where FileName !~ "jp2launcher.exe"
+| where InitiatingProcessFileName != "gc_worker.exe"  // Azure Arc agent
+| where ProcessCommandLine !contains "chocolatey.org"
+| where InitiatingProcessFileName !~ "Microsoft.Management.Services.CloudManagedDesktop.Agent.exe"
+// END Exclusions
+| where not(InitiatingProcessCommandLine contains "C:\\WINDOWS\\ccmcache\\" and InitiatingProcessCommandLine contains "\\Uninstall.bat")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName, AccountUpn
