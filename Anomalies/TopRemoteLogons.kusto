@@ -1,0 +1,13 @@
+DeviceLogonEvents
+// fetch logon counts
+| where LogonType == "RemoteInteractive"
+| summarize DevicesAccessed = make_set(DeviceName) by AccountName, AccountDomain, AccountSid, IsLocalAdmin
+| where IsLocalAdmin != ""  // a few duplicates with no IsLocalAdmin value, not sure why
+| extend TotalDevices = array_length(DevicesAccessed)
+| where TotalDevices > 1
+// add identity context
+| join IdentityInfo on $left.AccountSid == $right.OnPremSid
+// deduplicate
+| distinct AccountName, JobTitle, tostring(IsLocalAdmin), AccountDomain, tostring(DevicesAccessed), TotalDevices
+// sort
+| sort by TotalDevices, IsLocalAdmin
