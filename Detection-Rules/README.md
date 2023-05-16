@@ -42,7 +42,7 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Immediate investigation of the activity is advised. Isolate the host and restrict app execution if ransomware is suspected.
 
-### [🔎]() [OneNote in Non-Standard Location](OneNoteWeirdLocation.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA6WQQQrCMBBF_1rwDrEH6B2E6kqruHYT04hCbaUNFsHD-zKCK3cyDJO8-fmZpFLUQ1cF6praUleQqE5Jo-aa6SWnSRfYQLqvrpbXzUhWN6gnOgmlU6FSPTSy-u3R49HYfo_P59SCOXq72ePU4ZidjsRSd6IypTeyQRlYt7bb2hsG2EieUWW6swlqSKJm8v80B1RBTzL_QamT9Qq9Abr72LRKAQAA&timeRangeId=week) [OneNote in Non-Standard Location](OneNoteWeirdLocation.kusto)
 
 **Severity:** Low
 
