@@ -1,0 +1,4 @@
+DeviceFileEvents
+| where FileName endswith ".one"
+| where FolderPath !contains "\\AppData\\Local\\Microsoft\\OneNote\\"
+| where FolderPath !contains "Recycle.bin"
