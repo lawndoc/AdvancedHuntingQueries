@@ -1,0 +1,29 @@
+// All TLDs and number of connections from our devices
+// Block entire TLDs with Windows Firewall settings in endpoint.microsoft.com
+let AllTLDs = (externaldata(response: string) [@"https://data.iana.org/TLD/tlds-alpha-by-domain.txt"] with (format="txt"))
+| where response !startswith "#"
+| project response
+| extend data = parse_csv(response)
+| extend TLD = tolower(tostring(data[0]))
+| project-away response, ['data'];
+let ContactedTLDs = DeviceNetworkEvents
+| where RemoteIP !startswith "127."
+| extend FQDN = trim_end("(:|\\?).*", tostring(split(trim_start('http(.|)://', RemoteUrl), "/")[0]))
+| where FQDN contains "."  // exclude singular hostnames used in local name resolution
+| extend TLD = tostring(split(FQDN, ".")[-1])
+| where gettype(parse_json(TLD)) != "long"  // TLD is a number because URL was an IP address
+| summarize Connections = count(), UniqueSites = count_distinct(FQDN) by TLD
+| sort by Connections asc, UniqueSites asc;
+union ContactedTLDs, AllTLDs
+
+// Investigate TLD connections
+let TLDs = dynamic(["tcs", "box", "jetpack", "auction", "olk", "valinhos", "storage", "ec", "date"]);
+DeviceNetworkEvents
+| extend FQDN = trim_end("(:|\\?).*", tostring(split(trim_start('http(.|)://', RemoteUrl), "/")[0]))
+| where FQDN contains "."  // local name resolution
+| extend TLD = tostring(split(FQDN, ".")[-1])
+| where gettype(parse_json(TLD)) != "long"  // TLD is a number because URL was an IP address
+| where TLD in~ (TLDs)
+| join IdentityInfo on $left.InitiatingProcessAccountSid == $right.OnPremSid
+| project Timestamp, DeviceName, ActionType, FQDN, InitiatingProcessFileName, InitiatingProcessCommandLine, Username=InitiatingProcessAccountName, FullName=strcat(GivenName," ",Surname), JobTitle, EmailAddress
+| sort by Timestamp
