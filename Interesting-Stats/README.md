@@ -17,3 +17,8 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 - Employees with a HIGH House/Job Ratio are either just looking at houses or are leaving soon
 - Use Confidence (seen applying for jobs) when considering employees with a HIGH HJR
 - Track this list over time to identify employees that tranistion from a LOW HJR to a HIGH HJR
+
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA61V247TMBCdZyT-IexTI5UtEo-oSKhd0CJuoiyvKE2ypdtcqiSlFPHxnDl2Lt263aCtrCj2eObMGc94PJKRePJNclnjP8M_lKUEkmD1UWKJuPLkO_4lvgoaBWZP5Ql0Yqw9SCPMMsyX_GLsezLGN8X8FyQh_tfQuIW1Wv7FXkRE1c-wX93T_gSvKf5DyD_AaoGhbD5D-wZ2ccNCsdZY5XIH6WmkiWygWVi2LY5hu4ZmQdkPYJVAzGRwwrvf-E_h7Tms1xiJ7E56UlQPuGrr2dGXf41j-B7zcdnMu7YzZGD6oOWM2VRu_n-fbo2TWZnxpRWjeS6Y6QUir_V8WumZfiGX1Ho_ZmciaHndQWPJ07zeq8BdU2v1aR_6eEWU_Ui0mres75VcQW4Q2yrbyk_y1si-EivHfox4Ct6XkN4qRK-sNNcXYBEQfY69HLiX1Eqx082_R6_9UZWnRlqRz3kwE85X9s5nZ0ItiBeR7T7iiJ0nlt-QJqjHiOeaQGPbYN02vSXk7gaoAe9i35w8c7IKgFpaHo9Bydgpd6y78AyIBTFXj8YJEV_WQSlxcilGwNv0h2gT2G1oOSaGmQ_srTz0VUJPEVbsjyVvy8Ch58N6zh7o6hOuuFomnrzm3X8pLxy33P3OmBve19d76M_x3ilCQon7BCes1JS8FDWgx5z77uz0RZ5ivqBW_coG7DixfQsXD-Tt-NkO985SV28xTzBqjbHtqCaegbwDgulzLcYFWQ7RJzedXm6q4n6MKrsivyXWY3kD5LaWbvByZNQ57OWu-vI7cWuXqZpouxUSMe-h_APcSoKkuggAAA&timeRangeId=week) [Top Social Media Visitors](TopSocialMedia.kusto)
+
+- Identify people who spend the most time browsing social media sites
+- Looks for Facebook, Twitter, Reddit, and LinkedIn by default

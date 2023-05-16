@@ -1,0 +1,26 @@
+// Top Social Media Visitors
+let identities = DeviceInfo
+| distinct DeviceName, LoggedOnUsers
+| project DeviceName, CurrentUsers = parse_json(LoggedOnUsers)
+| mv-apply CurrentUsers on (
+    project DeviceName, User = CurrentUsers.UserName, SID = CurrentUsers.Sid
+)
+| project DeviceName, Username = tostring(User), OnPremSid = tostring(SID)
+| join IdentityInfo on OnPremSid;
+DeviceNetworkEvents
+| where RemoteUrl contains "facebook.com"
+     or RemoteUrl contains "twitter.com"
+     or RemoteUrl contains "linkedin.com"
+     or RemoteUrl contains "reddit.com"
+// exclude low confidence usage
+| where RemoteUrl !contains "ads"
+| where RemoteUrl !contains "analytics"
+| where RemoteUrl !contains "rank"
+| where RemoteUrl !contains "cdn"
+| summarize Count=count(), RemoteUrls=make_set(RemoteUrl) by DeviceName
+| where Count >= 30
+| join identities on DeviceName
+| where JobTitle !contains "Communications"
+| where JobTitle !contains "Digital Marketing"
+| summarize by DeviceName, Count, FullName=strcat(GivenName," ",Surname), JobTitle, Email=AccountUpn, tostring(RemoteUrls)
+| sort by Count desc
