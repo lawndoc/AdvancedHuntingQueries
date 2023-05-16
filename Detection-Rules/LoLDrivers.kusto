@@ -1,0 +1,44 @@
+let LoLDrivers = materialize((externaldata(response: string) [@"https://www.loldrivers.io/api/drivers.csv"] with (format="txt"))
+| extend data = parse_csv(response)
+| extend ID = tostring(data[0]),
+         Author = tostring(data[1]),
+         Created = todatetime(data[2]),
+         Command = tostring(data[3]),
+         Description = tostring(data[4]),
+         Usecase = tostring(data[5]),
+         Category = tostring(data[6]),
+         Privileges = tostring(data[7]),
+         MitreID = tostring(data[8]),
+         OperatingSystem = tostring(data[9]),
+         Resources = tostring(data[10]),
+         DriverDescription = tostring(data[11]),
+         Person = tostring(data[12]),
+         Handle = tostring(data[13]),
+         Detection = tostring(data[14]),
+         KnownMD5 = tostring(data[15]),
+         KnownSHA1 = tostring(data[16]),
+         KnownSHA256 = tostring(data[17]),
+         KnownPublisher = tostring(data[18]),
+         KnownPublishedDate = tostring(data[19]),
+         KnownPublishedCompany = tostring(data[20]),
+         KnownPublishedDescription = tostring(data[21]),
+         Verified = tostring(data[22]),
+         Tags = tostring(data[23])
+| project-away response, ['data']
+| where Tags != "Tags"); // get rid of header row
+let SHA1Matches = LoLDrivers
+| join hint.strategy=broadcast kind=inner (
+    DeviceFileEvents
+    | where ActionType == "FileCreated"
+    | where SHA1 != ""
+    ) on $left.KnownSHA1 == $right.SHA1;
+let SHA256Matches = LoLDrivers
+| join hint.strategy=broadcast kind=inner (
+    DeviceFileEvents
+    | where ActionType == "FileCreated"
+    | where SHA256 != ""
+    | where SHA256 != "0000000000000000000000000000000000000000000000000000000000000000"
+    ) on $left.KnownSHA256 == $right.SHA256;
+union SHA1Matches, SHA256Matches
+| distinct Timestamp, DeviceName, ActionType, FileName, Description=KnownPublishedDescription, Category, Verified, Resources, SHA1, SHA256, InitiatingProcessAccountName, FileOriginUrl, DeviceId, ReportId
+| sort by Timestamp
