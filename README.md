@@ -53,7 +53,7 @@ DeviceEvents
 | distinct ActionType
 ```
 
-When troubleshooting a query that isn't giving you want you want, the first thing you need to do is identify *which line* is wrong. Injecting `take 10` or `where` and then a __blank line__ will allow you to check for values you would expect to see or not see.
+When troubleshooting a query that isn't giving you want you want, the first thing you need to do is identify *which line* is wrong. Injecting `take 10` or a `where` filter and then a __blank line__ will allow you to check for values you would expect to see or not see.
 
 ```
 DeviceProcessEvents
