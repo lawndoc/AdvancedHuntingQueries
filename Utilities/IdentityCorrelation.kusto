@@ -9,7 +9,7 @@ DeviceInfo
     project DeviceName, User = CurrentUsers.UserName, SID = CurrentUsers.Sid
 )
 | project DeviceName, Username = tostring(User), OnPremSid = tostring(SID)
-| join IdentityInfo on OnPremSid
+| join kind=inner IdentityInfo on OnPremSid
 // step 2: filter for the given values
 | where DeviceName has_any (Search)
         or AccountObjectId in (Search)
