@@ -1,0 +1,17 @@
+let PrevalenceThreshold = 1000; // adjust as needed
+DeviceEvents
+| where ActionType == "ServiceInstalled"
+//-- false positives
+//| where FileName !contains "exampleexclusion.exe"
+//-- END false positives
+| extend AdditionalFields = todynamic(AdditionalFields)
+| extend ServiceName = tostring(AdditionalFields.["ServiceName"])
+| extend ServiceAccount = tostring(AdditionalFields.["ServiceAccount"])
+| extend ServiceStartType = tostring(AdditionalFields.["ServiceStartType"])
+| join kind=inner DeviceFileEvents on FileName
+| where SHA2561 != "" // Defender not capturing hashes ~10% of the time for some reason? Needs investigation
+| summarize Count = count(), LastSeenTimestamp = max(Timestamp), Devices = make_set(DeviceName) by FileName, FolderPath, SHA256=SHA2561, ServiceName, ServiceAccount, ServiceStartType
+| invoke FileProfile("SHA256")
+| project-reorder LastSeenTimestamp, ServiceName, GlobalPrevalence
+| where GlobalPrevalence < PrevalenceThreshold
+| sort by GlobalPrevalence asc
