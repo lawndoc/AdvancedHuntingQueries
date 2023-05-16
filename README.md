@@ -62,3 +62,20 @@ DeviceProcessEvents
 
 | summarize Count = count() by InitiatingProcessFileName  // this line won't execute because of the blank line above
 ```
+
+To clean up the output, you can hide columns you don't care about with `project`, `project-away`, and `project-reorder`. It's also helpful to `sort` by a column like `Timestamp` or `Count`. Having an easily digestible output is as important as the query itself.
+
+Try the below queries with and without `project` and `sort`
+
+```
+DeviceProcessEvents
+| where FileName contains "whoami"
+| project Timestamp, DeviceName, AccountName, FileName, InitiatingProcessCommandLine
+```
+
+```
+DeviceProcessEvents
+| where FileName == "cmd.exe"
+| summarize Count = count() by AccountName
+| sort by Count desc
+```
