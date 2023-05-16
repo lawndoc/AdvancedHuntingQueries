@@ -1,5 +1,5 @@
 # AdvancedHuntingQueries
-My collection of Microsoft 365 Advanced Hunting Queries written in Kusto Query Language (KQL). My queries are public domain ([Unlicense](LICENSE)), but I'd appreciate a credit/tag if you republish my queries.
+My collection of Microsoft 365 Advanced Hunting Queries written in Kusto Query Language (KQL). My queries are public domain ([Unlicense](LICENSE)), but I'd appreciate a credit/tag if you republish them somewhere.
 
 This repo includes '🔎' icons with hotlinks that plug the queries right into your M365 Security tenant.
 
