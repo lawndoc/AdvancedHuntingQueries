@@ -37,7 +37,7 @@ Click on a category to start exploring my hunting queries!
 
 ### Getting started
 
-To get better at KQL, the best starting place is to just explore the data available to you. By exploring the data, your curiosity can lead you down rabbit holes of "how can I find this?" It also helps you understand the data. You can't make your own hunting queries if you don't know what information you have available to you.
+To get better at KQL, the best starting place is to just __explore the data__. By exploring the data, your curiosity can lead you down rabbit holes of "how can I find this?" It also helps you understand the data. __You can't make your own hunting queries if you don't know what information you have available to you__.
 
 Choose a table like `DeviceEvents` and take a sample of just 10 random events with `take 10`. This will give you an idea of what data is in that table.
 
