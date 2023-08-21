@@ -7,9 +7,8 @@ Clicking on the name of the query will bring you to the file for it in this git 
 Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Query page
 
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA22QywqCUBCG_3XQOxxcGbhvVRDVIoho4QuYSQneSLvSw_c5hbaQYXSY__yXczY6KlGhRin91FalTnShtW4_pNZYI73ldNeZ3YV2CmHkTDUnIqaK3ZyOjO9rivJkkNl7hDhWtptRTh7YSgvtmWNlIBGchv-Dr2fqBboO75qpNKz1brP7MGOq1NVy7yxX8peiBsmpVjXVy5yX3XlnGXq-D9PpgLIjVcJ7pKBJpxuwH3b8IhWVGSey921vHAze_wPAk99NhgEAAA&timeRangeId=week) [Cleartext LDAP Logins](CleartextLDAP.kusto)
-- Files with the substring "password" in the name
-- Results probably contain users' passwords in plain text
-- Included file extensions: .doc .docx .xls .xlsx .txt
+- Identify clear text LDAP authentication requests to domain controllers with MDI
+- Aggregate by source hostname
 
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA-1VTUvDQBB9Z8H_sPSkUFDPomBrD0Xxoige0yRidZtIE1MVf7xvZzfazVcLrSclhNmP2Tdvdt4kGjFyKNzSzpFhihQJ7R1HOR4x5M6Ic4UTvuf0KrgT0t5wNMM1_R_ouUDA8zG9X6GJYNACTOirBWnKlQy72MEncSLOM1lNiGXiV3GuaGe0_YY9n6vxGJJLjDFxywhP3DPoCs9iI_LX9DE4KTnmgrF5RhcYECWVSD8sFJ8DPgovgpHJ6UJGiq_NTbnbLc-nRI4cr6JSjzKvBWsSC6ZqZfbOHGKHYOeXbq6ljqaSPcaeuzxCntZcKWNkxJ3xCcTjwzH1vX1dhHKnCff3sM_5hDE3qemxcNErtDnCG-9XS6Xzf43-KY0uxxgztq-FMyIFEsvE1OJlMY86VV5VVDPO9vXer8X24_VwL3Xpuc5YrYgxUc1tJqKlOfl15b2M91s9XVf96n-O1dw2Y3Z32vpfmk2ZVbuv8Lqv6Oxno37Ly3JXXPX5lXkb7JTZx1v5gvkq6Xf8Fdr1XN9p6rKmLm__A53yPVzSt9F7_q3YdXo6kozCxnso70jRtvlUa2s9vwCjhurNXAkAAA&timeRangeId=week) [Critical Vulnerabilities](CriticalVulnerabilities.kusto)
 - List all software in your environment with Critical CVEs
