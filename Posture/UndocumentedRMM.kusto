@@ -1,0 +1,50 @@
+// Undocumented Remote Admin Tool
+// list of toolS compiled from: https://github.com/0x706972686f/RMM-Catalogue
+// NOTE: does not yet support file name wildcards
+//------------------------------------------------------------------
+// EXCLUSIONS GO HERE, PLEASE LEAVE A COMMENT WITH EXPLANATION
+let ApprovedRMM = datatable(Software:string, DeviceSubstring:string) [
+    "TeamViewer", "device1",  // X user allowed -- see ticket #12345
+];
+//------------------------------------------------------------------
+let RMMCatalogue = materialize(
+    (externaldata(response: string) [@"https://github.com/0x706972686f/RMM-Catalogue/raw/main/rmm.csv"] with (format="txt"))
+    | where response !startswith "Software"
+    | project response
+    | extend data = parse_csv(response)
+    | extend
+        Software = tostring(data[0]),
+        URL = tostring(data[1]),
+        FileNames = parse_csv(tostring(data[2]))
+    | mv-expand FileName = FileNames
+    | extend FileName = replace_string(tostring(FileName), "*", "") // TODO: support wildcard search
+    | project-away response, ['data'], FileNames
+    | extend PackedRecord = pack_all()
+);
+// get all RMM file events and processes
+let RMMFiles = (
+    RMMCatalogue
+    | where Software != "Quick Assist" // internally approved software
+    | extend FileName = tolower(FileName)
+    | join kind=inner (
+        union DeviceFileEvents, DeviceProcessEvents, DeviceNetworkEvents
+        | where ActionType != "FileDeleted"
+        | extend FileName = tolower(FileName)
+    ) on FileName
+);
+// TODO: add these tools to the GitHub repo
+let MissingTools = dynamic([
+    // ngrok
+    // tmate
+]);
+// ApprovedRMM
+// | join kind=inner RMMFiles on Software
+//| where DeviceName !contains DeviceSubstring
+RMMFiles
+| join kind=leftouter ApprovedRMM on Software
+| where DeviceSubstring == "" or DeviceName !contains DeviceSubstring
+| extend User = iff(AccountName != "", AccountName, InitiatingProcessAccountName)
+| project-reorder User, Software, DeviceName, ActionType, FileName, FolderPath, RemoteUrl
+| sort by Timestamp
+| summarize LastUsed=max(Timestamp) by User, Software, FileName, DeviceName
+| sort by LastUsed
