@@ -15,10 +15,13 @@ let RMMCatalogue = materialize(
     | extend
         Software = tostring(data[0]),
         URL = tostring(data[1]),
-        FileNames = parse_csv(tostring(data[2]))
+        FileNames = parse_csv(tostring(data[2])),
+        Category = tostring(data[3])
     | mv-expand FileName = FileNames
-    | extend FileName = replace_string(tostring(FileName), "*", "") // TODO: support wildcard search
+    | extend FileName = replace_string(tostring(FileName), "*", "")  // TODO: support wildcard search
     | project-away response, ['data'], FileNames
+    | where Software !in~ ("Guacamole", "Royal Server", "Royal TS")  // client-only; no risk
+    | where FileName !in~ ("vncviewer.exe")  // client-only; no risk
     | extend PackedRecord = pack_all()
 );
 // get all RMM file events and processes
@@ -32,19 +35,12 @@ let RMMFiles = (
         | extend FileName = tolower(FileName)
     ) on FileName
 );
-// TODO: add these tools to the GitHub repo
-let MissingTools = dynamic([
-    // ngrok
-    // tmate
-]);
-// ApprovedRMM
-// | join kind=inner RMMFiles on Software
-//| where DeviceName !contains DeviceSubstring
 RMMFiles
 | join kind=leftouter ApprovedRMM on Software
-| where DeviceSubstring == "" or DeviceName !contains DeviceSubstring
+| where DeviceSubstring == "" or DeviceName !contains DeviceSubstring  // approved use cases
 | extend User = iff(AccountName != "", AccountName, InitiatingProcessAccountName)
 | project-reorder User, Software, DeviceName, ActionType, FileName, FolderPath, RemoteUrl
 | sort by Timestamp
-| summarize LastUsed=max(Timestamp) by User, Software, FileName, DeviceName
-| sort by LastUsed
+| summarize Timestamp=max(Timestamp), Executables=make_set(FileName) by AccountName=User, Software, DeviceName
+| project-reorder Timestamp, Software, DeviceName, AccountName, Executables
+| sort by Timestamp
