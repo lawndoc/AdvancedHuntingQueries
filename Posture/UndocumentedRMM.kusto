@@ -4,7 +4,8 @@
 //------------------------------------------------------------------
 // EXCLUSIONS GO HERE, PLEASE LEAVE A COMMENT WITH EXPLANATION
 let ApprovedRMM = datatable(Software:string, DeviceSubstring:string) [
-    "TeamViewer", "device1",  // X user allowed -- see ticket #12345
+    "Quick Assist", ".",  // internally approved software -- "." == all devices
+    "TeamViewer", "exampledevice1",  // X user allowed -- see ticket #12345
 ];
 //------------------------------------------------------------------
 let RMMCatalogue = materialize(
@@ -27,7 +28,6 @@ let RMMCatalogue = materialize(
 // get all RMM file events and processes
 let RMMFiles = (
     RMMCatalogue
-    | where Software != "Quick Assist" // internally approved software
     | extend FileName = tolower(FileName)
     | join kind=inner (
         union DeviceFileEvents, DeviceProcessEvents, DeviceNetworkEvents
