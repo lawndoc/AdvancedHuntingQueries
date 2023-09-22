@@ -1,0 +1,44 @@
+// SET YOUR EMAIL DOMAIN HERE
+let email_domain = "example.com";
+// Identify potential QR code attachments
+// (false negatives include filenames not matching below criteria)
+let PastedImages = EmailAttachmentInfo  // not currently used; too many false positives
+| where Timestamp > ago(30d)
+| where SenderFromAddress !endswith strcat("@",email_domain)
+| where FileType in~ ("png", "jpeg", "svg")
+| where FileName matches regex "^image[0-9]{3}\\.[A-Za-z0-9]+$"  // images pasted into email body
+| extend QRConfidence = "Low";
+let PotentialQRCodes = EmailAttachmentInfo
+| where Timestamp > ago(30d)
+| where SenderFromAddress !endswith strcat("@",email_domain)
+| where FileType in~ ("png", "jpeg", "svg")
+| where FileName matches regex "^[A-Z0-9]{9,10}\\.[A-Za-z0-9]+$"  // common QR generators
+| extend QRConfidence = "Medium";
+let ProbableQRCodes = EmailAttachmentInfo
+| where Timestamp > ago(30d)
+| where SenderFromAddress !endswith strcat("@",email_domain)
+| where FileType in~ ("png", "jpeg", "svg")
+| where FileName contains_cs "QR"
+| extend QRConfidence = "High";
+let DefiniteQRCodes = EmailAttachmentInfo
+| where Timestamp > ago(30d)
+| where SenderFromAddress !endswith strcat("@",email_domain)
+| where FileType in~ ("png", "jpeg", "svg")
+| where FileName contains "QRcode"
+| extend QRConfidence = "Certain";
+// AAD/Entra Identity Protection alerts
+let IdentityProtectionAlerts = AlertInfo
+| where Timestamp > ago(30d)
+| where ServiceSource endswith "Identity Protection"
+| join AlertEvidence on AlertId
+| project-away *1
+| where EntityType == "User"
+| extend RecipientEmailAddress = strcat(AccountName,"@",email_domain);
+// put it all together
+union PotentialQRCodes, ProbableQRCodes, DefiniteQRCodes//, PastedImages
+| join kind=inner IdentityProtectionAlerts on RecipientEmailAddress
+| where Timestamp < Timestamp1  // potential QR phish followed by Identity Protection alert
+| where datetime_diff("day", Timestamp1, Timestamp) < 7  // alert within 7 days of email
+| join kind=inner EmailEvents on NetworkMessageId
+| project Timestamp, AlertTimestamp=Timestamp1, AlertTitle=Title, RecipientEmailAddress, Subject, AttachmentName=FileName, QRConfidence, SenderFromAddress, SenderDisplayName, FileType, SHA256, NetworkMessageId, AlertId, AccountSid, ReportId
+| sort by Timestamp

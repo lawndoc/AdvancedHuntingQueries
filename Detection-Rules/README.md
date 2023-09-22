@@ -54,6 +54,18 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Download and analyze the .one file and determine how it was created on the device. Look for suspicious activity coming from the OneNote process if the .one document was opened.
 
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAGTDDWUAA-1Y207bQBCd50r9hzTqA7QGSqsWoTZVIxIEEtCWwEOvKImTEMhNttOU3r69Z87uxnbikASJ9gVZJt7Zuc-Z8ZoN2ZCcVKQsJ_j9IG_lVI7xVJZDKcq-HOC5BKpZHWG1h71j3PflnnSkIRFoDelKVdpYn4kvfbvqYaeAO4_976B0ZUCJdamTJy8vqWWDPuxDsgGZCJJNuQJlAK5oTKtCNifv6Z3KK3cO1AhXFZRzaDS8YULrCnSpZEjuHv62KNOWb3gOQVM_6-AYWo1NxqGaqtQYUq7POLuUVVsq1QKlBo4Odkf0KgBdPQ7o72oqR-9ACbnrI1bV1LLaC8y3y2AxI6J9_G3CSg6Xict5VIffAS7D12HehozWR3ZzoPUpp9p73E3mQzMc0meXD_X4F3ZGsN6g3hyQ0baZiGwVc_KauW9BfkWeyRNYW82UrdAzn-td3Fr3ItY-90PG_8DyhJBUX85BU1sBotN8rwApb3B7M3GWbXvXVvIEcQ9IUd4_REUeFK2galWEXpAjXofIh66u13xkMZJEhqlpQG2Ke9X2lRk0Ff-EbK3JtnyRn8jcb_mMax3UIqgfwbMmP8Ycj-UhpOOqt1O4GSQQZWKLWOs4S4pP7ZSrcRTqUWTzbbppBxw9ot70X53xmL49ILJdn8ZInuxLp8dfGtF3eLsdvDk8xVjbhqVNrJdDnJnUXWLETd8W86e-VYm4IDE3lsPXIbHbxsTqZqBMq1eDjRppdxj71xirs3KR9SeEf3XGlmct8jes-R6oLdidrHcJv01aMu_Qu3r_73q7SrvT1k0rvkObTm_61FfEVcJTmZZ1oqRPghHPLGYWqMU6qWYaVel_MD7xOSRNymdJFxOyxs-Ycps4ClCTNrNTAf-Q-Ggwo5PoyS-Yh7gqF1ibU3ccS5n2kjXpT3CoFadhQP0XVv8aohrhVsuP8O7Iiqmc8C_GaMFW_pTnzGAmco5pqQ2pto002eHpDitMdVQRT3VmUSUdjr0FOi2JwAHkI_ZVZDGl5yZ9r7WIJxOr8g85m0z-5p2BvLlvMG_uzFP_jJ7sL4fpul_y10eu9Ne8o2_SDybGxauzaKe8yqRvJs4bs7_5BvzqCtkb2p0d-91lTr81onT5yZHluU98Ncivnp7xjNLEpTPXZ0eYGZsVSzZ91Ua_lYg19iI37ntTxy3rxZWtRlOSp_pF6x5Xq8yvu16qukeMcMTz2yVPYlpJg63ZMyErNi81T6b3CzPzlJaKuCoknr2lUOhxxg6BBeetsTF9UnCzojD1FvSueZ95C50FJrlKRK3-50PrmbQz-W43knvQ91Seywuu51UpncWYkpyMFUbhcjmgrvTcDy3N9dF0vf4CNS9CZygSAAA&timeRangeId=SetInQuery) [Potential QR Code Phish Victim](QRPhishVictim.kusto)
+
+**Severity:** Low
+
+**Category:** Initial Access
+
+**MITRE techniques:** [T1566.001](https://attack.mitre.org/techniques/T1566/), [T1193](https://attack.mitre.org/techniques/T1193/)
+
+**Description:** An AAD/Entra Identity Protection alert was triggered for a user that may have recieved an email with a QR code.
+
+**Recommended actions:** Download and investigate the potential QR code image, and investigate the Identity Protection alert. Reach out to the affected user for details if needed.
+
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAAx2MQQqDQBAE6xzwD-ID_IE3E_AS_ILIEpdEF1Q0h-DbUyxDz0DXdLcEDiKj96l2ThIrb-76gUVno-DGj1I26a2qpJNFaWTIe-FFL0u5a3Meup_cOzDnTMPlrvwaJclMoFZfVfEHylBSLowAAAA&timeRangeId=week) [Rclone](Rclone.kusto)
 
 **Severity:** Medium
