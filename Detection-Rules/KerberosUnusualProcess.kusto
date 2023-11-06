@@ -1,0 +1,9 @@
+// Kerberos traffic from unusual Windows process
+DeviceNetworkEvents
+| where RemotePort == 88
+// -- BEGIN FALSE POSITIVES --
+| where InitiatingProcessFileName != ""  // missing sensor data
+| where InitiatingProcessFolderPath !~ "c:\\windows\\system32\\lsass.exe"  // Windows default kerberos client
+// -- END FALSE POSITIVES --
+| where AdditionalFields !contains "Posix"  // ignore Linux and Mac
+| sort by Timestamp

@@ -18,6 +18,18 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Investigate the file with the double extension and determine if it is malicious or not. Quarantine the file if you determine it is malware.
 
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?queryId=32428&queryTenantId=a092aca4-b5d0-43a3-aef5-ae017bd139bd&query=H4sIANYYSWUAA6WSQU8CQQyF39nE_zB6VxK9GBMPGMAQUYkYvXhZlkUmsKxxBtHE-Nv9pmwIoidNM9DtvNe-ttNQQ06XKvSiof1WCkQiXqYx5pXzPbabEm-hOSdwMs34fgAx14jbpTGfDZmTK2C72lEL_9XyFLrmRJAVqKnaxAvYsUZ-wF9qYjoK_Ft-S7CR_75xItEzzOkES5yGdXCAOZ2T8UJdqjh11FRPAyIO7g1eV3eceyKDmvFbzS56PHU8_UXr7Qn-Zk8dojPrJUNd4uyZon3MYStFJaiEXmVweKnTYF045pWyZ39WUKFgZIy-oSam4tNU5DrVI7b8tpkUCXrnRJvqsY4sNiOSWdZD4m-czS62t5tqjsEv4KVdTH-8nJwbX291ez9tZtb6x26a1B_Vs6mokF5gx6qlaQSbQW43abbe5p0m0jdtnu42e_PMdW77SLl7hl-AcXBTz05XePlaSVi_wCFzdCj2tv9g1UpefkJ-AYHJOUJSAwAA&timeRangeId=month) [Kerberos Traffic From Unusual Windows Process](KerberosUnusualProcess.kusto)
+
+**Severity:** Medium
+
+**Category:** Credential Access
+
+**MITRE techniques:** [T1558](https://attack.mitre.org/techniques/T1558/)
+
+**Description:** Almost all Kerberos traffic should be coming from lsass.exe, so other Windows processes reaching out to port 88 may indicate the presence post-exploitation tooling such as Rubeus.
+
+**Recommended actions:** Investigate the process generating Kerberos traffic. If the activity is deemed to be malicious, take immediate containment actions and look for lateral movement to and from the affected entities.
+
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA-1X227TQBDdZyT-wURIbaRQmgDlUkWiokVUUBrRlpcKoTRx05TUtmy3oYiP58zZ3cRxnPWSF16Q5dienT0795lMVKhyFahPKsa9r1I1VnegpSoDtYv7RvXBEXKlryb4_YWvTVyh-mlWIq4MydnHSgpqphJgRniG6g1wMqwJRqRGqonvc_VWNdQVqDk4M_A8xTXltQW0mIhFebbwHoOnD_4xnuXVAX7vgPkN6FOs5EAPIM0ldqVGjy7Wc8rdgBRN9VA9UL_BZXWJgBrMNNEWSPCWUo_v5oxlDVchHcKmGiUHb9EGm7NTztU2ZG6qFjGCpWtP3VIX0aIeq-3EekfJtUeHBbShoeVAvKF_54idGsQYO8S60QLiKvmeOdH2adcBdyaURixcj_rciXpGHw3AKc96tBc1GmtbjeiRew-8HSdez8TxGBEvqOEs91yYL52YR4x_8bVfBL5yoh3DF5JlfXpE9p5A74xWuPFAf-1E_0KNY0R5Ch_5ad-uyZliJVs3pto1udQzlccXzZ1HH0wGTbwitO2RRzlj_m_0dWfRR-yIUVkjRNc-csQH0Z1Jc8QT6L8Hfh9MdzaVMTuQYccL151Rc9weIvWCnTBDVQ49q7I7w1ajD2FrXW98TnFnmusUXccTRqFPTevUZKBbo_UyslOTkV_NnHKJO_TqRp2arDwF18irInVMRto5IAFXrK5NDj4BzxS3WLY8O7SUTEMbM6wN4FiUqYmwcEGWR5SmMaPILLMLikxQATtIznPGtEEMewTE6eNbx2tK38gpE8NtM_CIUgzIb_Wumg6thNdYG9N7V3zmmMS0jWyXvAfGBU-U83UXlhN_kH-IVXlGRrLNBU9IpEhnlL7w3nTIA8ogJ2ULvGV77RWq3ymkSEwOadtZtMWJqOFEnFcp64FF_iatLbZ4TOxLWqO6ynXJJRYdcQremq3uVvhFV7H_vqnzja321f7x27P9j691Ymre5VbFlebQsXWLfbbmVud9yxl5Nr6GrOl6Jhwwbk7N_4eMlUz6SasUKZ9J11WvKgqEbv1f5K3uGd01-oyglWf4VkX3ENrybNoq2KxsJfk-pG1z_lu203KPGab3Z9R6QEzJk6KOVu9j4z_ZfYb3yZIVDwvyJdQhJ816JjO0ABa5r_TLH-FhTfX6DwAA&timeRangeId=week) [LoL Drivers](LoLDrivers.kusto)
 
 **Severity:** Low
