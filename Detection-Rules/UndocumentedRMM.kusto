@@ -1,10 +1,10 @@
 // Undocumented Remote Admin Tool
-// list of toolS compiled from: https://github.com/0x706972686f/RMM-Catalogue
+// list of tools compiled from: https://github.com/0x706972686f/RMM-Catalogue
 // NOTE: does not yet support file name wildcards
 //------------------------------------------------------------------
 // EXCLUSIONS GO HERE, PLEASE LEAVE A COMMENT WITH EXPLANATION
 let ApprovedRMM = datatable(Software:string, DeviceSubstring:string) [
-    "Quick Assist", ".",  // internally approved software -- "." == all devices
+    "Quick Assist", "",              // Approved internal software
     "TeamViewer", "exampledevice1",  // X user allowed -- see ticket #12345
 ];
 //------------------------------------------------------------------
@@ -34,13 +34,20 @@ let RMMFiles = (
         | where ActionType != "FileDeleted"
         | extend FileName = tolower(FileName)
     ) on FileName
+    | where not (FileName == "winvnc.exe" and ActionType != "ProcessCreated")  // exclude UltraVNC if server not launched
 );
+// Find software+device combos that need to be excluded
+let ExcludedRMM = RMMFiles
+| join kind=inner ApprovedRMM on Software
+| where DeviceName contains DeviceSubstring
+| distinct Software, DeviceName
+;
+// Get devices with undocumented RMM software
 RMMFiles
-| join kind=leftouter ApprovedRMM on Software
-| where DeviceSubstring == "" or DeviceName !contains DeviceSubstring  // approved use cases
+| join kind=anti ExcludedRMM on Software, DeviceName
 | extend User = iff(AccountName != "", AccountName, InitiatingProcessAccountName)
-| project-reorder User, Software, DeviceName, ActionType, FileName, FolderPath, RemoteUrl
-| sort by Timestamp
-| summarize Timestamp=max(Timestamp), Executables=make_set(FileName) by AccountName=User, Software, DeviceName
-| project-reorder Timestamp, Software, DeviceName, AccountName, Executables
-| sort by Timestamp
+| summarize Timestamp=max(Timestamp), Accounts=make_set(User), Executables=make_set(FileName) by Software, DeviceName
+| join RMMFiles on Software, Timestamp, DeviceName
+| project-away *1
+| project-reorder Timestamp, Software, DeviceName, Accounts, Executables, ReportId
+| sort by Software asc, Timestamp
