@@ -9,7 +9,7 @@ let ApprovedRMM = datatable(Software:string, DeviceSubstring:string) [
 ];
 //------------------------------------------------------------------
 let RMMCatalogue = materialize(
-    (externaldata(response: string) [@"https://github.com/0x706972686f/RMM-Catalogue/raw/main/rmm.csv"] with (format="txt"))
+    (externaldata(response: string) [@"https://raw.githubusercontent.com/0x706972686f/RMM-Catalogue/main/rmm.csv"] with (format="txt"))
     | where response !startswith "Software"
     | project response
     | extend data = parse_csv(response)
