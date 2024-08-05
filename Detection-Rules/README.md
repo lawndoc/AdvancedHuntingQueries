@@ -78,17 +78,17 @@ Click on the '🔎' hotlink to plug the query right into your Advanced Hunting Q
 
 **Recommended actions:** Download and investigate the potential QR code image, and investigate the Identity Protection alert. Reach out to the affected user for details if needed.
 
-### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAAx2MQQqDQBAE6xzwD-ID_IE3E_AS_ILIEpdEF1Q0h-DbUyxDz0DXdLcEDiKj96l2ThIrb-76gUVno-DGj1I26a2qpJNFaWTIe-FFL0u5a3Meup_cOzDnTMPlrvwaJclMoFZfVfEHylBSLowAAAA&timeRangeId=week) [Rclone](Rclone.kusto)
+### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIALk5sWYAA71XXU_bUAz186T9h4B4gGmMdS-TmNCECkyVOsqg0vaatikNDU3XhPKh_fgdn3tvvpq0IKapapM4vtf28bGveyAH4smJnMqVtOVSOnIhffz25FwO8eaYb9t4_o67RAJZyJK_-jQXX-5lhucRnn18hzKRUCI-z6EVQxJAM-H7saR2rY9VHjRnMoDOHa66QndKsWMMnSl3iyFT6RDykE9v5Q18Vq_P4VUfnh-u8VEt7Mstnm656yNkgTxwx7tsT9VL6HFMX0N4FUHHg8aEUdzJNe6KMY0gWzA2D7oh_FX9U-ytb6OST5eQXNOGif-XdPExKGjcPfoSYeeYcecr27Thc10PXt1YLHIUip8rvNWcLOwKtRDRYko_75kb9W3At8PC7urHmBh5uA8oM6jP4HvRp8iuWHB3j8guiXAA3dTaUeRixrWOFfqrsUS0mFvplJjRruGBxnNE686bkP6E8oSnXe7qcDmBZIk3avW8xLFTej4jPsUVBttulrNZhkMdJw27h9x_nqFZrY8B2ZfA4pDYJDaPzuYfIjdhLAFrL7fQx9o5pUeMevsZCB1XPNpea63DGFOi6LJ-UcrVBZll0DpjPhVNn3nP_SrH98FW23YNuk01G7CGIkSWFPDdJWcNQ9XeDe5C1q5jbcxIQ_ijHPAzHPbWxn1pe4NipN3Pky2b4xR7hNb6trTkk3xGPB_ttwVZkSkx7Q_Igyk7x4Idb0zeechgDxH32K3U_mPWdVJWh95NsGLOPDu-fYX0CXeLgpeeRaZal6aTLdHvHqA7xl4P8LQF2T4-ajWB3NTfciVDr-PGKh-2LB8UhWJ-c0bk6P1ARKHF7dh24IT9wHhexG5ou43r7qaLxkTRSBfYLapEZOx8s11mTI1opRrN7rfsKaYzR7QRUDMmKqZv-pZ5GrU70wz-J3aPLnS0NnX3KrY5d6e8joBVaOt3wVWh_MY1qPSuMubF3uVlZ6NX-ZR7n8nO-1rNHaI2Jic2Z7xDfEzV77D76gmpa1f1_oW9po5Ttl3Veh2r2yU2dC0XWuLVdoj6zqccnjbwoq4r9vHezBJqIWKfuGdnSDP-qRflE9sxKpF8qhhTYs5ocxLP7XlsqirKJrPb7C4_26vImb7h5o8mXnkrGVBZHSNWO29VdsHYUsq7XK-xOM1c4vTU4z35wutL5oh8lnL9oelk2jzH_K_q3lzVxep6buU-r-qb7TyvRl9e63mG2pSb7nuHHCgyUcb2gPdJxvDmfwUJqyhGPXl2YnazazmvLqday2YOHNVw3EyiVWmrgftGe1XeyqyVa22fU6TPTvCuoJVY3rvJss_ZJ2D38XnSF3Fr_l9WN285G8V-2XzG_6TOGTtbVJr6Nk97QzshTOQvxccSo4wOAAA&timeRangeId=month) [Remotely Spawned DCOM Process](RemoteDCOMChildProc.kusto)
 
 **Severity:** Medium
 
-**Category:** Ransomware
+**Category:** Execution
 
-**MITRE techniques:** N/A
+**MITRE techniques:** [T1175](https://attack.mitre.org/techniques/T1175/)
 
-**Description:** The cloud sync program Rclone was seen making network connections on a host. This could indicate potential ransomware/extortion activity. This alert may generate false positives for legitimate use of Rclone.
+**Description:** A DCOM server process accepted an inbound network connection and then spawned a child process. This may indicate the abuse of a DCOM provider to facilitate remote execution.
 
-**Recommended actions:** Immediate investigation of the activity is advised. Isolate the host and restrict app execution if ransomware is suspected.
+**Recommended actions:** Investigate the source of the network connection and the child process that was spawned. If malicious activity is suspected, isolate both the source and the destination assets involved in the remote execution alert.
 
 ### [🔎](https://security.microsoft.com/v2/advanced-hunting?query=H4sIAAAAAAAAA62RO6vCQBCFTy34H9RKm2svWPkAm8vFwj6sUYMmETfXB4i_3W_HiIopLGSZzeacM3NmZ4eKtVcix_eXKHRQrp3WGoHHykC86qrprAbcCmxHNDSBS2ATRbZnWuoPLrdanjUG3VjdSKnlNHVhb6FyMDk5sX6II9Eylwhsjqb9Qf2Z9eLhQqWgX3AaEKm2Vun05N0vvVdUK-C9euqyXnsJd1-WvYTzJ_es7mNiswtMRuamYhr9iml8w_nuNDSVQ5Fw36JUPXynsCcQx9-i9Lx18m9v4MkJaITvdzq7aebUd-S9T2L6MomOrqI0FPOeAgAA&timeRangeId=week) [Renamed Rclone](RenamedRclone.kusto)
 

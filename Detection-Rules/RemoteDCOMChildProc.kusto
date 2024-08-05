@@ -1,0 +1,32 @@
+// DESCRIPTION: A DCOM server spawned a child process after an inbound network connection
+// NOTE: DCOM server in-memory execution is possible through procedures like Excel DCOM RegisterXLL and Outlook DCOM CreateObject
+//       Separate alerts will be created for detecting DCOM lateral movement without child processes
+let DCOMInboundConnections = materialize(
+    DeviceNetworkEvents
+    // Listening connections accepted spawned by svchost
+    | where ActionType == "InboundConnectionAccepted"
+    | where InitiatingProcessParentFileName == "svchost.exe"
+    // DCOM server exclusions (before join for optimization)
+    | where RemoteIP !contains "127.0.0.1"  // Loopback traffic TODO: why is this happening? znremote using DCOM on v-xmfax01 -- wsmprovhost.exe
+    | where InitiatingProcessFileName != "raserver.exe"  // Quick Assist -- TODO: cover in another rule
+    // Get full svchost command line so we can filter on DcomLaunch
+    | join kind=innerunique DeviceProcessEvents on
+        DeviceName,
+        $left.InitiatingProcessId == $right.ProcessId,
+        $left.InitiatingProcessFileName == $right.FileName
+    | where InitiatingProcessCommandLine1 contains "svchost.exe -k DcomLaunch"
+    // Take only what we need for joins and final output -- less mess later
+    | project DeviceName, FileName, ProcessId, RemoteIP, RemotePort, LocalIP, LocalPort
+);
+DCOMInboundConnections
+// Get DCOM server child processes
+| join kind=innerunique DeviceProcessEvents on
+    DeviceName,
+    $left.ProcessId == $right.InitiatingProcessId,
+    $left.FileName == $right.InitiatingProcessFileName
+// Clean up old fields -- DCOM server is now parent process
+| extend FileName = FileName1, ProcessId = ProcessId1
+| project-away *1
+| sort by Timestamp
+// Child process exclusions
+| where FileName != "WerFault.exe"  // DCOM server crash
