@@ -1,0 +1,8 @@
+let CorporateCloudflareAccountID = "your_cloudflare_account_id";
+union DeviceProcessEvents
+| where ProcessCommandLine contains "tunnel run" and ProcessCommandLine contains "--token"  // OS agnostic, handles renamed executables
+| extend HalfTrim = trim_start('.*--token ', ProcessCommandLine)
+| extend CloudflaredToken = parse_json(base64_decode_tostring(trim_end(' .*', HalfTrim)))
+| extend CloudflareAccountID = CloudflaredToken.a
+| project-away HalfTrim
+| where CloudflareAccountID != CorporateCloudflareAccountID
