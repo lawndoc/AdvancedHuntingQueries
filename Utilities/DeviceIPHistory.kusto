@@ -1,0 +1,21 @@
+let QueryDevice = "devicename";
+DeviceNetworkEvents
+| where DeviceName startswith QueryDevice
+| where LocalIP !in ("", "::", "::1", "127.0.0.1", "0.0.0.0")
+| where LocalIP !startswith "::ffff:"
+| where LocalIP != RemoteIP
+| where ActionType !in ("ListeningConnectionCreated", "ConnectionFailed")  // only successful peer connections are evidence
+| where ActionType !endswith "Inspected"  // bad data -- Zeek flips RemoteIP and LocalIP sometimes
+| extend AccurateDirection = tostring(parse_json(AdditionalFields).direction)
+| extend EstimatedDirection = iff(LocalPort > RemotePort, "Out", "In")  // rarely wrong; needed when sensor isn't logging directionality
+| extend Direction = iff(AccurateDirection != "", AccurateDirection, EstimatedDirection)
+| summarize
+    Start=min(Timestamp),
+    End=max(Timestamp),
+    ConnectionCount=count(),
+    InboundConnections=countif(Direction=="In"),
+    OutboundConnections=countif(Direction!="In"),
+    Peers=make_set(RemoteIP)
+    by LocalIP
+| where OutboundConnections > 0  // wrong directionality captured by EstimatedDirection
+| sort by Start desc
